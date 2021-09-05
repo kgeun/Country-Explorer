@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Teal Series -->
+    <color name="primary_teal_1">#00E6CD</color>
+    <color name="primary_teal_2">#00C2AD</color>
+    <color name="secondary_teal_3">#1BD7C3</color>
+    <color name="secondary_teal_4">#18AD9D</color>
+    <color name="primary_teal_1_0.1">#1A00E6CD</color>
+    <color name="primary_teal_1_0.3">#4D00E6CD</color>
+
+    <!-- Skyblue Series -->
+    <color name="primary_skyblue_1">#1761b3</color>
+
+    <!-- Achromatic Series -->
+    <color name="basic_black">#292929</color>
+    <color name="grey1">#777777</color>
+
+    <!-- Chip Colorset -->
+    <color name="primary_bright_violet">#f8f7fd</color>
+    <color name="primary_bright_white">#fefefe</color>
+    <color name="primary_dark_navy_1">#18203b</color>
+    <color name="primary_dark_navy_2">#0c132c</color>
+    <color name="primary_dark_navy_3">#1e2746</color>
+
+
+    <!-- Translucent Achromatic Series -->
+    <color name="basic_black_0.05">#0D292929</color>
+    <color name="basic_black_0.5">#80292929</color>
+    <color name="basic_black_0.4">#66292929</color>
+
+    <color name="solid_grey_0.5">#949494</color>
+    <color name="solid_grey_0.3">#BEBEBE</color>
+
+    <color name="white0.05">#0DFFFFFF</color>
+    <color name="white0.1">#1AFFFFFF</color>
+    <color name="white0.2">#33FFFFFF</color>
+    <color name="white0.3">#4DFFFFFF</color>
+    <color name="white0.4">#66FFFFFF</color>
+    <color name="white0.5">#80FFFFFF</color>
+    <color name="white0.7">#B3FFFFFF</color>
+    <color name="white0.8">#CCFFFFFF</color>
+    <color name="white0.9">#E6FFFFFF</color>
+
+    <color name="black0.7">#B3000000</color>
+    <color name="black0.8">#CC000000</color>
+    <color name="black0.85">#D9000000</color>
+    <color name="black0.9">#E6000000</color>
+</resources>

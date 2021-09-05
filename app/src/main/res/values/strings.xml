@@ -1,0 +1,17 @@
+<resources>
+    <!-- Application Name -->
+    <string name="app_name">Breaking Bad Character Explorer</string>
+    <string name="app_name_dev">Breaking Bad Character Explorer(Dev)</string>
+    <string name="server_success">success</string>
+    <string name="internal_server_error">Internal server error</string>
+    <string name="communication_error">Server communication error</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="Characters">Breaking Bad\nCharacter Explorer</string>
+    <string name="search">Search</string>
+    <string name="season_appearance">Season Appearance</string>
+    <string name="wiki">Wiki</string>
+    <string name="occupation">Occupation</string>
+    <string name="status">Status</string>
+    <string name="season_appearenace">Season Appearenace</string>
+
+</resources>

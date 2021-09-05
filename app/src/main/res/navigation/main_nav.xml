@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/characterListFragment">
+
+    <fragment
+        android:id="@+id/characterListFragment"
+        android:name="com.kgeun.countryexplorer.view.fragment.BBCharacterListFragment"
+        tools:layout="@layout/fragment_character_list">
+        <action
+            android:id="@+id/list_to_detail"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@null"
+            app:popEnterAnim="@null"
+            app:exitAnim="@null"
+            app:popExitAnim="@null">
+            <argument
+                android:name="char_id"
+                app:argType="long"
+                android:defaultValue="0L"/>
+        </action>
+        <argument
+            android:name="char_id"
+            app:argType="long"
+            android:defaultValue="0L"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.kgeun.countryexplorer.view.fragment.BBDetailFragment"
+        tools:layout="@layout/fragment_detail">
+    </fragment>
+</navigation>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="characterAdapter"
+            type="com.kgeun.bbcharacterexplorer.view.adapter.BBCharacterAdapter" />
+
+        <variable
+            name="seasonAdapter"
+            type="com.kgeun.bbcharacterexplorer.view.adapter.BBSeasonAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.kgeun.countryexplorer.viewmodel.CEMainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_dark_navy_1">
+
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white0.9"
+            android:layout_marginTop="20dp"
+            android:text="@string/Characters"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/rcs_search_background_1"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white0.9"
+            android:textColorHint="@color/white0.9"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@={viewModel.searchKeywordLiveData}"
+            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
+            android:hint="@string/search"
+            android:imeOptions="actionDone"
+            app:layout_constraintTop_toBottomOf="@id/appTitle"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/seasonsList"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="@dimen/global_horizontal_margin"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/searchName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rvAdapter="@{seasonAdapter}"
+            tools:listitem="@layout/listitem_season_selection"
+            tools:itemCount="5"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/charactersList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginVertical="20dp"
+            android:clipToPadding="false"
+            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/seasonsList"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rvAdapter="@{characterAdapter}"
+            tools:listitem="@layout/listitem_character"
+            tools:itemCount="5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
