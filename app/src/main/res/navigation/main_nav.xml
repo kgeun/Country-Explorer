@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/characterListFragment">
+    app:startDestination="@id/countryListFragment">
 
     <fragment
-        android:id="@+id/characterListFragment"
-        android:name="com.kgeun.countryexplorer.view.fragment.BBCharacterListFragment"
-        tools:layout="@layout/fragment_character_list">
+        android:id="@+id/countryListFragment"
+        android:name="com.kgeun.countryexplorer.view.fragment.CECountryListFragment"
+        tools:layout="@layout/fragment_country_list">
         <action
             android:id="@+id/list_to_detail"
             app:destination="@id/detailFragment"
@@ -17,19 +17,19 @@
             app:exitAnim="@null"
             app:popExitAnim="@null">
             <argument
-                android:name="char_id"
-                app:argType="long"
-                android:defaultValue="0L"/>
+                android:name="alphaCode"
+                app:argType="string"
+                android:defaultValue="GBR"/>
         </action>
         <argument
-            android:name="char_id"
-            app:argType="long"
-            android:defaultValue="0L"/>
+            android:name="alphaCode"
+            app:argType="string"
+            android:defaultValue="GBR"/>
     </fragment>
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.kgeun.countryexplorer.view.fragment.BBDetailFragment"
+        android:name="com.kgeun.countryexplorer.view.fragment.CEDetailFragment"
         tools:layout="@layout/fragment_detail">
     </fragment>
 </navigation>
