@@ -1,34 +1,36 @@
 package com.kgeun.countryexplorer.view.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kgeun.countryexplorer.R
-import com.kgeun.countryexplorer.data.model.network.BBCharacter
-import com.kgeun.countryexplorer.databinding.ListitemCharacterBinding
-import com.kgeun.countryexplorer.view.fragment.BBCharacterListFragmentDirections
+import com.kgeun.countryexplorer.data.model.network.CECountryList
+import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
+import com.kgeun.countryexplorer.view.fragment.CECountryListFragmentDirections
 
-class BBCharacterAdapter(val parentView: ViewGroup, val characterList: List<BBCharacter>?) :
+class CECountryAdapter(val parentView: ViewGroup, val countryList: List<CECountryList>?) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CharacterHolder(
-                ListitemCharacterBinding.inflate(
+                ListitemCountryBinding.inflate(
                     LayoutInflater.from(parentView.context), parentView, false
                 )
             )
     }
 
-    override fun getItemCount(): Int = characterList?.size ?: 0
+    override fun getItemCount(): Int = countryList?.size ?: 0
 
     inner class CharacterHolder(
-        private val binding: ListitemCharacterBinding
+        private val binding: ListitemCountryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BBCharacter) {
+        fun bind(item: CECountryList) {
             binding.apply {
-                character = item
+                country = item
+
                 cardView.isClickable = true
                 cardView.isFocusable = true
 
@@ -41,7 +43,7 @@ class BBCharacterAdapter(val parentView: ViewGroup, val characterList: List<BBCh
 
                     findNavController(root)
                         .navigate(
-                            BBCharacterListFragmentDirections.listToDetail(item.char_id), navBuilder.build()
+                            CECountryListFragmentDirections.listToDetail(item.alpha3Code), navBuilder.build()
                         )
                 }
                 executePendingBindings()
@@ -51,8 +53,8 @@ class BBCharacterAdapter(val parentView: ViewGroup, val characterList: List<BBCh
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        characterList?.let {
-            (holder as CharacterHolder).bind(characterList[position])
+        countryList?.let {
+            (holder as CharacterHolder).bind(countryList[position])
         }
     }
 }

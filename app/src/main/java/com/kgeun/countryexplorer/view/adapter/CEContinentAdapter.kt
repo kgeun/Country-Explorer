@@ -3,37 +3,37 @@ package com.kgeun.countryexplorer.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kgeun.countryexplorer.data.model.ui.BBSeasonItem
-import com.kgeun.countryexplorer.databinding.ListitemSeasonSelectionBinding
+import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
+import com.kgeun.countryexplorer.databinding.ListitemContinentSelectionBinding
 
-class BBSeasonAdapter(val parentView: ViewGroup, val seasonList: HashMap<Int, BBSeasonItem>?, val buttonCallback: (BBSeasonItem) -> Unit) :
+class CEContinentAdapter(val parentView: ViewGroup, val continentList: List<CEContinentItem>?, val buttonCallback: (CEContinentItem) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        SeasonHolder(
-            ListitemSeasonSelectionBinding.inflate(
+        ContinentHolder(
+            ListitemContinentSelectionBinding.inflate(
                 LayoutInflater.from(parentView.context), parentView, false
             )
         )
 
-    override fun getItemCount(): Int = seasonList?.size ?: 0
+    override fun getItemCount(): Int = continentList?.size ?: 0
 
-    inner class SeasonHolder(
-        private val binding: ListitemSeasonSelectionBinding
+    inner class ContinentHolder(
+        private val binding: ListitemContinentSelectionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: BBSeasonItem) {
+        fun bind(item: CEContinentItem) {
             binding.apply {
-                seasonitem = item
+                continent = item
                 root.isClickable = true
                 root.isFocusable = true
                 root.isSelected = item.selected
                 root.setOnClickListener {
                     root.isSelected = !item.selected
                     buttonCallback(
-                        BBSeasonItem(
+                        CEContinentItem(
                             item.text,
-                            item.season,
+                            item.region,
                             !item.selected
                         )
                     )
@@ -44,8 +44,10 @@ class BBSeasonAdapter(val parentView: ViewGroup, val seasonList: HashMap<Int, BB
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        seasonList?.let { list ->
-            seasonList[position + 1]?.let { (holder as SeasonHolder).bind(it) }
+        continentList?.get(position).let {
+            if (it != null) {
+                (holder as ContinentHolder).bind(it)
+            }
         }
     }
 }
