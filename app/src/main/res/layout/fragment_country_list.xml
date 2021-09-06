@@ -5,12 +5,12 @@
 
     <data>
         <variable
-            name="characterAdapter"
-            type="com.kgeun.bbcharacterexplorer.view.adapter.BBCharacterAdapter" />
+            name="continentAdapter"
+            type="com.kgeun.countryexplorer.view.adapter.CEContinentAdapter" />
 
         <variable
-            name="seasonAdapter"
-            type="com.kgeun.bbcharacterexplorer.view.adapter.BBSeasonAdapter" />
+            name="countryAdapter"
+            type="com.kgeun.countryexplorer.view.adapter.CECountryAdapter" />
 
         <variable
             name="viewModel"
@@ -21,20 +21,21 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_dark_navy_1">
+        android:background="@color/primary_light_grey_1">
 
         <TextView
             android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white0.9"
+            android:textColor="@color/basic_black"
             android:layout_marginTop="20dp"
-            android:text="@string/Characters"
+            android:text="@string/title"
             android:textSize="21sp"
             android:textStyle="bold"
             android:layout_marginHorizontal="@dimen/global_horizontal_margin"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
         
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/searchName"
@@ -42,8 +43,8 @@
             android:layout_height="40dp"
             android:background="@drawable/rcs_search_background_1"
             android:layout_marginTop="20dp"
-            android:textColor="@color/white0.9"
-            android:textColorHint="@color/white0.9"
+            android:textColor="@color/basic_black_0.5"
+            android:textColorHint="@color/basic_black_0.5"
             android:textSize="16sp"
             android:gravity="center"
             android:lines="1"
@@ -56,37 +57,39 @@
             app:layout_constraintTop_toBottomOf="@id/appTitle"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/seasonsList"
+            android:id="@+id/continentalList"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:paddingHorizontal="@dimen/global_horizontal_margin"
             android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/global_horizontal_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/searchName"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rvAdapter="@{seasonAdapter}"
-            tools:listitem="@layout/listitem_season_selection"
-            tools:itemCount="5"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchName"
+            app:rvAdapter="@{continentAdapter}"
+            tools:itemCount="5"
+            tools:listitem="@layout/listitem_continent_selection" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/charactersList"
+            android:id="@+id/countryList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
             android:layout_marginVertical="20dp"
             android:clipToPadding="false"
             android:layout_marginHorizontal="@dimen/global_horizontal_margin"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/seasonsList"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
+            app:layout_constraintTop_toBottomOf="@id/continentalList"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rvAdapter="@{characterAdapter}"
-            tools:listitem="@layout/listitem_character"
-            tools:itemCount="5"/>
+            app:rvAdapter="@{countryAdapter}"
+            tools:listitem="@layout/listitem_country"
+            tools:itemCount="5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

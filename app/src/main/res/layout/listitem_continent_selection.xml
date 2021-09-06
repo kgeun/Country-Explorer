@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="seasonitem"
-            type="com.kgeun.bbcharacterexplorer.data.model.ui.BBSeasonItem" />
+            name="continent"
+            type="com.kgeun.countryexplorer.data.model.ui.CEContinentItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,19 +15,19 @@
         android:layout_height="match_parent"
         android:paddingVertical="4dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/rcs_season_background_1">
+        android:background="@drawable/rcs_continent_background_1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/white0.8"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="@{seasonitem.text}"
+            android:text="@{continent.text}"
             android:gravity="center"
             android:includeFontPadding="false"
             android:layout_marginHorizontal="12dp"
-            android:textSize="14sp"
-            tools:text="Season 1"
+            android:textSize="13sp"
+            tools:text="Asia"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

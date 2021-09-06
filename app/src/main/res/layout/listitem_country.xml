@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="country"
+            type="com.kgeun.countryexplorer.data.model.network.CECountryList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="4dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPaddingBottom="14dp"
+            app:rippleColor="@color/primary_teal_1_0.3"
+            app:cardCornerRadius="13dp"
+            android:elevation="0dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:shapeAppearanceOverlay="@color/primary_teal_1_0.3"
+            android:layout_marginVertical="5dp"
+            android:background="@color/white"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageThumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:adjustViewBounds="true"
+                    app:setThumbnailUrl="@{country.flag}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/countryName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="9dp"
+                    android:lineSpacingExtra="5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/basic_black"
+                    android:includeFontPadding="false"
+                    tools:text="Republic of Korea"
+                    android:text="@{country.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageThumbnail"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/regionTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:textSize="11sp"
+                    android:layout_marginHorizontal="9dp"
+                    android:textColor="@color/basic_black_0.5"
+                    android:includeFontPadding="false"
+                    android:text="@string/region_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/countryName" />
+
+                <TextView
+                    android:id="@+id/region"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:layout_marginHorizontal="9dp"
+                    android:textColor="@color/basic_black_0.8"
+                    android:includeFontPadding="false"
+                    android:text="@{country.subregion}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/regionTitle" />
+
+                <TextView
+                    android:id="@+id/capitalTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:textSize="12sp"
+                    android:layout_marginHorizontal="9dp"
+                    android:textColor="@color/basic_black_0.5"
+                    android:includeFontPadding="false"
+                    android:text="@string/capital_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/region" />
+
+                <TextView
+                    android:id="@+id/capital"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:layout_marginHorizontal="9dp"
+                    android:textColor="@color/basic_black_0.8"
+                    android:includeFontPadding="false"
+                    android:text="@{country.capital}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/capitalTitle" />
+
+                <TextView
+                    android:id="@+id/languageTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:textSize="12sp"
+                    android:layout_marginHorizontal="9dp"
+                    android:textColor="@color/basic_black_0.5"
+                    android:includeFontPadding="false"
+                    android:text="@string/language_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/capital" />
+
+                <TextView
+                    android:id="@+id/language"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:layout_marginHorizontal="9dp"
+                    android:textColor="@color/basic_black_0.8"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="7sp"
+                    app:languageList="@{country.languages}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/languageTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
