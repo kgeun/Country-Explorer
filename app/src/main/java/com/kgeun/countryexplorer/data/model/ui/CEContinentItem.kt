@@ -1,7 +1,7 @@
 package com.kgeun.countryexplorer.data.model.ui
 
-data class BBSeasonItem(
+data class CEContinentItem(
     val text: String = "",
-    val season: Int = 0,
+    val region: String = "",
     var selected: Boolean = false
 )
