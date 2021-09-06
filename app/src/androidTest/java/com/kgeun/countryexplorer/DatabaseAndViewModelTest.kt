@@ -91,7 +91,7 @@ class DatabaseAndViewModelTest {
     @Test
     fun testGetCharacterByCharId() {
         mainViewModel.viewModelScope.launch {
-            mainViewModel.getCharacterByCharId(1).observeOnce {
+            mainViewModel.getCountryByCode(1).observeOnce {
                 if (it != null) {
                     assertEquals(charactersList?.get(1)!!, it)
                 }

@@ -37,7 +37,7 @@ class AnalyticsAdapter @Inject constructor(
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class BBServiceTest {
+class CEServiceTest {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private lateinit var mainViewModel: CEMainViewModel
 
