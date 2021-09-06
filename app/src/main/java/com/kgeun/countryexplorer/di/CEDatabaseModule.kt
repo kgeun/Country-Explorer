@@ -2,8 +2,8 @@ package com.kgeun.countryexplorer.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kgeun.countryexplorer.data.persistance.BBAppDatabase
-import com.kgeun.countryexplorer.data.persistance.BBMainDao
+import com.kgeun.countryexplorer.data.persistance.CEAppDatabase
+import com.kgeun.countryexplorer.data.persistance.CEMainDao
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -15,18 +15,18 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class BBDatabaseModule {
+class CEDatabaseModule {
     @Provides
     @Singleton
-    fun provideMainDao(appDatabase: BBAppDatabase): BBMainDao = appDatabase.BBMainDao()
+    fun provideMainDao(appDatabase: CEAppDatabase): CEMainDao = appDatabase.CEMainDao()
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): BBAppDatabase {
+    fun provideAppDatabase(@ApplicationContext appContext: Context): CEAppDatabase {
         return Room.databaseBuilder(
             appContext,
-            BBAppDatabase::class.java,
-            "breaking_bad"
+            CEAppDatabase::class.java,
+            "Country_Explorer"
         ).build()
     }
 

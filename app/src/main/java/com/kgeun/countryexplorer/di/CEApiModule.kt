@@ -1,6 +1,6 @@
 package com.kgeun.countryexplorer.di
 
-import com.kgeun.countryexplorer.network.BBService
+import com.kgeun.countryexplorer.network.CEService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -13,17 +13,17 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class BBApiModule {
+class CEApiModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitService(): BBService = Retrofit.Builder()
-        .baseUrl(BBService.BREAKING_BAD_API_URL)
+    fun provideRetrofitService(): CEService = Retrofit.Builder()
+        .baseUrl(CEService.REST_COUNTRIES_API_URL)
         .addConverterFactory(
             MoshiConverterFactory.create(
                 Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             )
         )
         .build()
-        .create(BBService::class.java)
+        .create(CEService::class.java)
 }
