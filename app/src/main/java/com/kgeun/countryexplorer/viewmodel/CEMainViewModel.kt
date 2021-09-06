@@ -3,14 +3,12 @@ package com.kgeun.countryexplorer.viewmodel
 import androidx.lifecycle.*
 import com.kgeun.countryexplorer.CEApplication
 import com.kgeun.countryexplorer.R
-import com.kgeun.countryexplorer.constants.BBConstants
-import com.kgeun.countryexplorer.data.model.network.BBCharacter
-import com.kgeun.countryexplorer.data.model.ui.BBSeasonItem
-import com.kgeun.countryexplorer.data.persistance.BBMainDao
-import com.kgeun.countryexplorer.network.BBService
-import com.kgeun.countryexplorer.utils.BBUtils.createDynamicQueryForKeywordAndSeasonSearch
-import com.kgeun.countryexplorer.utils.BBUtils.createDynamicQueryForSeasonSearch
-import com.kgeun.countryexplorer.utils.BBUtils.numberOfSelectedSeasons
+import com.kgeun.countryexplorer.constants.CEConstants
+import com.kgeun.countryexplorer.data.model.network.CECountryList
+import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
+import com.kgeun.countryexplorer.data.persistance.CEMainDao
+import com.kgeun.countryexplorer.network.CEService
+import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedSeasons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,114 +17,65 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CEMainViewModel @Inject constructor(
-    private val mainDao: BBMainDao,
-    private val bbService: BBService
+    private val mainDao: CEMainDao,
+    private val CEService: CEService
 ) : ViewModel() {
 
-    var defaultCharactersList = mainDao.getCharactersList()
+    var defaultCountriesList = mainDao.getCountriesList()
     var errorLiveData = MutableLiveData<(String?) -> Unit> {}
     var searchKeywordLiveData = MutableLiveData<String>()
-    var seasonLiveData = MutableLiveData<HashMap<Int,BBSeasonItem>?>()
+    var continentLiveData = MutableLiveData<List<CEContinentItem>?>()
     var searchKeyword = ""
 
-    var charactersLiveData = MediatorLiveData<List<BBCharacter>?>().apply {
+    var countriesLiveData = MediatorLiveData<List<CECountryList>?>().apply {
 
-        addSource(defaultCharactersList) { value ->
+        addSource(defaultCountriesList) { value ->
             setValue(value)
         }
 
         addSource(searchKeywordLiveData) { value ->
-            searchKeyword = value
-            val seasonList = seasonLiveData.value?.let {
-                seasonLiveData.value!!.values.filter { it.selected }.map { it.season }.toList()
-            } ?: listOf()
+            viewModelScope.launch {
+                withContext(Dispatchers.Default) {
+                    searchKeyword = value
 
-            if (value == "" && numberOfSelectedSeasons(seasonLiveData.value) == 0) {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(mainDao.getCharactersListSync())
-                    }
-                }
-            } else if (value == "" && numberOfSelectedSeasons(seasonLiveData.value) > 0) {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(
-                            mainDao.findCharactersListBySeasonListSync(
-                                createDynamicQueryForSeasonSearch(
-                                    seasonList
-                                )
-                            )
-                        )
-                    }
-                }
-            } else if (value != "" && numberOfSelectedSeasons(seasonLiveData.value) == 0) {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(mainDao.findCharactersListByKeywordSync(searchKeyword))
-                    }
-                }
-            } else {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(
-                            mainDao.findCharactersListByKeywordAndSeasonListSync(
-                                createDynamicQueryForKeywordAndSeasonSearch(
-                                    value,
-                                    seasonList
-                                )
-                            )
-                        )
-                    }
+                    val continentList = continentLiveData.value?.let {
+                        continentLiveData.value!!.filter { it.selected }.map { it.region }.toList()
+                    } ?: listOf()
+
+                    postValue(
+                        if (value == "" && numberOfSelectedSeasons(continentLiveData.value) == 0) {
+                            mainDao.getCountryListSync()
+                        } else if (value == "" && numberOfSelectedSeasons(continentLiveData.value) > 0) {
+                            mainDao.findCountryByContinentListSync(continentList)
+                        } else if (value != "" && numberOfSelectedSeasons(continentLiveData.value) == 0) {
+                            mainDao.findCountryByKeywordSync(searchKeyword)
+                        } else {
+                            mainDao.findCountryByKeywordAndSeasonListSync(value, continentList)
+                        }
+                    )
                 }
             }
         }
 
-        addSource(seasonLiveData) check@{ value ->
+        addSource(continentLiveData) check@{ value ->
             if (value == null)
                 return@check
 
-            val seasonList = value.values.filter { it.selected }.map { it.season }.toList()
+            viewModelScope.launch {
+                withContext(Dispatchers.Default) {
+                    val continentList = value.filter { it.selected }.map { it.region }.toList()
 
-            if (numberOfSelectedSeasons(value) == 0 && searchKeyword == "") {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(mainDao.getCharactersListSync())
-                    }
-                }
-            } else if (numberOfSelectedSeasons(value) == 0 && searchKeyword != "") {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(
-                            mainDao.findCharactersListByKeywordSync(
-                                searchKeyword
-                            )
-                        )
-                    }
-                }
-            } else if (numberOfSelectedSeasons(value) > 0 && searchKeyword == "") {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(
-                            mainDao.findCharactersListBySeasonListSync(
-                                createDynamicQueryForSeasonSearch(
-                                    seasonList
-                                )
-                            )
-                        )
-                    }
-                }
-            } else {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        postValue(
-                            mainDao.findCharactersListByKeywordAndSeasonListSync(
-                                createDynamicQueryForKeywordAndSeasonSearch(
-                                    searchKeyword,
-                                    seasonList
-                                )
-                            )
-                        )
-                    }
+                    postValue(
+                        if (numberOfSelectedSeasons(value) == 0 && searchKeyword == "") {
+                            mainDao.getCountryListSync()
+                        } else if (numberOfSelectedSeasons(value) == 0 && searchKeyword != "") {
+                            mainDao.findCountryByKeywordSync(searchKeyword)
+                        } else if (numberOfSelectedSeasons(value) > 0 && searchKeyword == "") {
+                            mainDao.findCountryByContinentListSync(continentList)
+                        } else {
+                            mainDao.findCountryByKeywordAndSeasonListSync(searchKeyword, continentList)
+                        }
+                    )
                 }
             }
         }
@@ -134,25 +83,23 @@ class CEMainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            loadCharactersList {
+            loadCountriesList {
                 (errorLiveData.value)?.let { error -> error(it) }
             }
         }
         searchKeywordLiveData.postValue("")
-        seasonLiveData.postValue(BBConstants.seasonItems.clone() as HashMap<Int, BBSeasonItem>)
+        continentLiveData.postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentItem>)
     }
 
-    fun getCharacterByCharId(charId: Long): LiveData<BBCharacter?> {
-        return mainDao.getCharacterByCharId(charId)
+    fun getCountryByCode(code: String): LiveData<CECountryList?> {
+        return mainDao.getCountryByCode(code)
     }
 
-
-    suspend fun loadCharactersList(error: (String?) -> Unit) = withContext(Dispatchers.IO) {
-        val charactersList = defaultCharactersList.value
-        if (charactersList == null || charactersList.isEmpty() ) {
+    suspend fun loadCountriesList(error: (String?) -> Unit) = withContext(Dispatchers.IO) {
+        val countriesList = defaultCountriesList.value
+        if (countriesList == null || countriesList.isEmpty() ) {
             try {
-                val result = bbService.fetchCharacters()
-                saveCharactersData(result)
+                saveCountriesData(CEService.fetchCountriesList())
             } catch (e: retrofit2.HttpException) {
                 error(CEApplication.instance.applicationContext.getString(R.string.communication_error))
             } catch (e: Exception) {
@@ -161,7 +108,7 @@ class CEMainViewModel @Inject constructor(
         }
     }
 
-    private fun saveCharactersData(result: List<BBCharacter>) {
-        mainDao.insertCharacter(result)
+    private fun saveCountriesData(result: List<CECountryList>) {
+        mainDao.insertCountries(result)
     }
 }
