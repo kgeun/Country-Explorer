@@ -1,14 +1,23 @@
 package com.kgeun.countryexplorer.binding
 
+import android.R
+import android.app.Activity
+import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.kgeun.countryexplorer.data.model.network.CELanguage
 
-object BBViewBinding {
+
+object CEViewBinding {
 
     @JvmStatic
     @BindingAdapter("setThumbnailUrl")
@@ -22,6 +31,7 @@ object BBViewBinding {
             .into(view)
     }
 
+
     @JvmStatic
     @BindingAdapter("textList")
     fun setTextList(view: TextView, list: List<String>?) {
@@ -33,6 +43,25 @@ object BBViewBinding {
 
         list.forEachIndexed { index, it ->
             text += it
+            if (index < list.size - 1) {
+                text += "\n"
+            }
+        }
+        text.trim()
+        view.text = text
+    }
+
+    @JvmStatic
+    @BindingAdapter("languageList")
+    fun setLanguageList(view: TextView, list: List<CELanguage>?) {
+        if (list == null) {
+            return
+        }
+
+        var text = ""
+
+        list.forEachIndexed { index, it ->
+            text += it.name
             if (index < list.size - 1) {
                 text += "\n"
             }
