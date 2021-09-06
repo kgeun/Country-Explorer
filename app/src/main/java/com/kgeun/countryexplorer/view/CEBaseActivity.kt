@@ -4,7 +4,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import com.kgeun.countryexplorer.utils.BBUtils
+import com.kgeun.countryexplorer.utils.CEUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ open class CEBaseActivity : AppCompatActivity() {
     }
 
     private fun registerErrorHandler() {
-        errorLiveData.postValue (BBUtils.errorHandler(this))
+        errorLiveData.postValue (CEUtils.errorHandler(this))
     }
 
     private fun setOrientation() {

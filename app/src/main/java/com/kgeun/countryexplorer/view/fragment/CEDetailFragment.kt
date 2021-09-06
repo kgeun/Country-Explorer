@@ -12,10 +12,10 @@ import com.kgeun.countryexplorer.viewmodel.CEMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BBDetailFragment : CEBaseFragment() {
+class CEDetailFragment : CEBaseFragment() {
     private lateinit var binding: FragmentDetailBinding
     val mainViewModel: CEMainViewModel by viewModels()
-    var charId: Long = 1L
+    var alphaCode: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +24,7 @@ class BBDetailFragment : CEBaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentDetailBinding.inflate(inflater, container, false)
-        charId = BBCharacterListFragmentArgs.fromBundle(requireArguments()).charId
+        alphaCode = CECountryListFragmentArgs.fromBundle(requireArguments()).alphaCode
 
         subscribeUi()
         setListener()
@@ -33,16 +33,16 @@ class BBDetailFragment : CEBaseFragment() {
     }
 
     private fun subscribeUi() {
-        mainViewModel.getCharacterByCharId(charId).observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.character = it
-            }
-        }
+//        mainViewModel.getCountryByCode(charId).observe(viewLifecycleOwner) {
+//            if (it != null) {
+//                binding.character = it
+//            }
+//        }
     }
 
     private fun setListener() {
-        binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+//        binding.btnBack.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
     }
 }
