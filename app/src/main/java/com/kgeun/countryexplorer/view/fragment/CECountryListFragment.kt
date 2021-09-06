@@ -1,11 +1,15 @@
 package com.kgeun.countryexplorer.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.kgeun.countryexplorer.constants.CEConstants
+import com.kgeun.countryexplorer.data.model.network.CECountryList
 import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
 import com.kgeun.countryexplorer.databinding.FragmentCountryListBinding
@@ -55,12 +59,19 @@ class CECountryListFragment : CEBaseFragment() {
 
     private fun bindUi() {
         binding.viewModel = mainViewModel
+        binding.countryList.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
     }
 
     private fun subscribeUi() {
         mainViewModel.countriesLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, it)
+            if (!it.isNullOrEmpty()) {
+                if (binding.countryAdapter == null) {
+                    binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, it)
+                } else {
+                    (binding.countryAdapter as CECountryAdapter).countryList = it
+                    (binding.countryAdapter as CECountryAdapter).notifyDataSetChanged()
+                }
+
             }
         }
 

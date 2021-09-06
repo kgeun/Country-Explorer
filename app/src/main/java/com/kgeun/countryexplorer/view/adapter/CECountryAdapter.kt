@@ -1,6 +1,6 @@
 package com.kgeun.countryexplorer.view.adapter
 
-import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
@@ -11,20 +11,22 @@ import com.kgeun.countryexplorer.data.model.network.CECountryList
 import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
 import com.kgeun.countryexplorer.view.fragment.CECountryListFragmentDirections
 
-class CECountryAdapter(val parentView: ViewGroup, val countryList: List<CECountryList>?) :
+class CECountryAdapter(val parentView: ViewGroup, var countryList: List<CECountryList>?) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return CharacterHolder(
+        return CountryHolder(
                 ListitemCountryBinding.inflate(
                     LayoutInflater.from(parentView.context), parentView, false
                 )
             )
     }
 
-    override fun getItemCount(): Int = countryList?.size ?: 0
+    override fun getItemCount(): Int {
+        return countryList?.size ?: 0
+    }
 
-    inner class CharacterHolder(
+    inner class CountryHolder(
         private val binding: ListitemCountryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CECountryList) {
@@ -54,7 +56,7 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: List<CECountr
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         countryList?.let {
-            (holder as CharacterHolder).bind(countryList[position])
+            (holder as CountryHolder).bind(it[position])
         }
     }
 }
