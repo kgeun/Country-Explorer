@@ -19,16 +19,17 @@
     <color name="basic_black">#292929</color>
     <color name="grey1">#777777</color>
 
-    <!-- Chip Colorset -->
+    <!-- Colorset -->
     <color name="primary_bright_violet">#f8f7fd</color>
     <color name="primary_bright_white">#fefefe</color>
     <color name="primary_dark_navy_1">#18203b</color>
     <color name="primary_dark_navy_2">#0c132c</color>
     <color name="primary_dark_navy_3">#1e2746</color>
-
+    <color name="primary_light_grey_1">#f4f6f9</color>
 
     <!-- Translucent Achromatic Series -->
     <color name="basic_black_0.05">#0D292929</color>
+    <color name="basic_black_0.8">#CC292929</color>
     <color name="basic_black_0.5">#80292929</color>
     <color name="basic_black_0.4">#66292929</color>
 
