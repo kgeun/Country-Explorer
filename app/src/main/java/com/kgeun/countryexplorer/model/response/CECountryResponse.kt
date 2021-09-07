@@ -1,19 +1,16 @@
-package com.kgeun.countryexplorer.data.model.network
+package com.kgeun.countryexplorer.data.response.network
 
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
-@Entity(tableName = "country")
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class CECountryListResponse(
+data class CECountryResponse(
     val flag: String = "",
     val name: String = "",
-    @PrimaryKey
     val alpha3Code: String = "",
     val capital: String = "",
     val region: String = "",

@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.google.android.material.appbar.AppBarLayout
 import com.kgeun.countryexplorer.R
-import com.kgeun.countryexplorer.data.model.network.CECountryViewItem
+import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import com.kgeun.countryexplorer.databinding.FragmentDetailBinding
 import com.kgeun.countryexplorer.network.CENetworkHandler
 import com.kgeun.countryexplorer.presentation.CEBaseFragment

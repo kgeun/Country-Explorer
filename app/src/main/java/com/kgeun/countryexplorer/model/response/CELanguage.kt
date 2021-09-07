@@ -1,4 +1,4 @@
-package com.kgeun.countryexplorer.data.model.network
+package com.kgeun.countryexplorer.data.response.network
 
 import android.os.Parcelable
 import com.squareup.moshi.JsonClass

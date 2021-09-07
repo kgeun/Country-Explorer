@@ -1,13 +1,13 @@
-package com.kgeun.countryexplorer.data.persistance
+package com.kgeun.countryexplorer.persistance
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
+import com.kgeun.countryexplorer.data.response.network.CECountryListEntity
 import com.kgeun.countryexplorer.utils.CETypeConverter
 
 @Database(
-    entities = [CECountryListResponse::class],
+    entities = [CECountryListEntity::class],
     version = 1,
     exportSchema = false
 )

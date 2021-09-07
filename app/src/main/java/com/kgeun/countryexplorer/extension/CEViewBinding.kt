@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.kgeun.countryexplorer.data.model.network.CELanguage
+import com.kgeun.countryexplorer.data.response.network.CELanguageEntity
 
 
 object CEViewBinding {
@@ -46,7 +46,7 @@ object CEViewBinding {
 
     @JvmStatic
     @BindingAdapter("languageList")
-    fun setLanguageList(view: TextView, list: List<CELanguage>?) {
+    fun setLanguageList(view: TextView, list: List<CELanguageEntity>?) {
         if (list == null) {
             return
         }

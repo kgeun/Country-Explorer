@@ -6,11 +6,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kgeun.countryexplorer.R
-import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
+import com.kgeun.countryexplorer.data.response.network.CECountryListEntity
 import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragmentDirections
+import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 
-class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryListResponse>?) :
+class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryListViewItem>?) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -25,7 +26,7 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CEC
         return countryList?.size ?: 0
     }
 
-    fun setList(list: List<CECountryListResponse>) {
+    fun setList(list: List<CECountryListViewItem>) {
         countryList!!.clear()
         countryList!!.addAll(list)
         notifyDataSetChanged()
@@ -34,7 +35,7 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CEC
     inner class CountryHolder(
         private val binding: ListitemCountryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CECountryListResponse) {
+        fun bind(item: CECountryListViewItem) {
             binding.apply {
                 country = item
 
@@ -50,7 +51,7 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CEC
 
                     findNavController(root)
                         .navigate(
-                            CECountryListFragmentDirections.listToDetail(item.alpha3Code), navBuilder.build()
+                            CECountryListFragmentDirections.listToDetail(item.alpha3Code!!), navBuilder.build()
                         )
                 }
                 executePendingBindings()

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="country"
-            type="com.kgeun.countryexplorer.data.model.network.CECountryViewItem" />
+            type="com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

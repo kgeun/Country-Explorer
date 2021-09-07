@@ -1,14 +1,14 @@
 package com.kgeun.countryexplorer.network
 
-import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
-import com.kgeun.countryexplorer.data.model.network.CECountryResponse
+import com.kgeun.countryexplorer.data.response.network.CECountryListEntity
+import com.kgeun.countryexplorer.data.response.network.CECountryResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CEService {
 
     @GET("/rest/v2/all?fields=name;capital;region;subregion;flag;alpha3Code;languages")
-    suspend fun fetchCountriesList(): List<CECountryListResponse>
+    suspend fun fetchCountriesList(): List<CECountryListEntity>
 
     @GET("/rest/v2/alpha/{code}")
     suspend fun fetchCountryDetail(

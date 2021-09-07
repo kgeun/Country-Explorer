@@ -2,8 +2,8 @@ package com.kgeun.countryexplorer.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kgeun.countryexplorer.data.persistance.CEAppDatabase
-import com.kgeun.countryexplorer.data.persistance.CEMainDao
+import com.kgeun.countryexplorer.persistance.CEAppDatabase
+import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

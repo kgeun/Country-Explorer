@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.kgeun.countryexplorer.data.persistance.CEMainDao
+import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.databinding.FragmentCountryListBinding
 import com.kgeun.countryexplorer.presentation.CEBaseFragment
 import com.kgeun.countryexplorer.presentation.countrylist.adapter.CEContinentAdapter

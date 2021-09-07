@@ -1,7 +1,7 @@
 package com.kgeun.countryexplorer.utils
 
 import androidx.room.TypeConverter
-import com.kgeun.countryexplorer.data.model.network.CELanguage
+import com.kgeun.countryexplorer.data.response.network.CELanguageEntity
 
 class CETypeConverter {
     @TypeConverter
@@ -28,8 +28,8 @@ class CETypeConverter {
     }
 
     @TypeConverter
-    fun gettingStringListFromString(items: String): List<CELanguage> {
-        val list = mutableListOf<CELanguage>()
+    fun gettingStringListFromString(items: String): List<CELanguageEntity> {
+        val list = mutableListOf<CELanguageEntity>()
 
         val array = items.split(",".toRegex()).dropLastWhile {
             it.isEmpty()
@@ -38,7 +38,7 @@ class CETypeConverter {
         for (s in array) {
             if (s.isNotEmpty()) {
                 list.add(
-                    CELanguage(
+                    CELanguageEntity(
                         name=s
                     )
                 )
@@ -49,7 +49,7 @@ class CETypeConverter {
     }
 
     @TypeConverter
-    fun writingStringFromLanguageList(list: List<CELanguage>): String {
+    fun writingStringFromLanguageList(list: List<CELanguageEntity>): String {
         var items=""
         for (i in list) items += ",${i.name}"
         return items

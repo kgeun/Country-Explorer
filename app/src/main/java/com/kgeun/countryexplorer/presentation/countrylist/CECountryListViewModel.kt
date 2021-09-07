@@ -1,17 +1,14 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.kgeun.countryexplorer.CEApplication
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.constants.CEConstants
-import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
-import com.kgeun.countryexplorer.data.model.network.CECountryResponse
-import com.kgeun.countryexplorer.data.model.network.CECountryViewItem
-import com.kgeun.countryexplorer.data.persistance.CEMainDao
-import com.kgeun.countryexplorer.extension.liveDataScope
+import com.kgeun.countryexplorer.data.response.network.CECountryListEntity
+import com.kgeun.countryexplorer.data.response.network.CECountryResponse
+import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
+import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.network.CEService
-import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +29,7 @@ class CECountryListViewModel @Inject constructor(
     var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>()
     var searchKeyword = ""
 
-    var countriesLiveData = MediatorLiveData<List<CECountryListResponse>?>().apply {
+    var countriesLiveData = MediatorLiveData<List<CECountryListEntity>?>().apply {
 
         addSource(defaultCountriesList) { value ->
             setValue(value)
@@ -96,7 +93,7 @@ class CECountryListViewModel @Inject constructor(
         continentLiveData.postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>)
     }
 
-    fun getCountryByCode(code: String): LiveData<CECountryListResponse?> {
+    fun getCountryByCode(code: String): LiveData<CECountryListEntity?> {
         return mainDao.getCountryByCode(code)
     }
 
@@ -117,8 +114,22 @@ class CECountryListViewModel @Inject constructor(
         val countriesList = defaultCountriesList.value
     }
 
-    private fun saveCountriesData(result: List<CECountryListResponse>) {
+    private fun saveCountriesData(result: List<CECountryListEntity>) {
         mainDao.insertCountries(result)
+    }
+
+    private fun transformResponseToViewItem(country: CECountryResponse): CECountryViewItem {
+        return country.run {
+            CECountryViewItem(
+                flag = flag,
+                name = name,
+                alpha3Code = alpha3Code,
+                capital = capital,
+                region = region,
+                subregion = subregion,
+                languages = languages
+            )
+        }
     }
 
 }
