@@ -17,7 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CECountryListFragment : CEBaseFragment() {
     private lateinit var binding: FragmentCountryListBinding
-    val countryListViewModel: CECountryListViewModel by viewModels()
+    val countryListViewModel: CEMainViewModel by viewModels()
     @Inject
     lateinit var mainDao: CEMainDao
     var countryAdapter: CECountryAdapter? = null
@@ -46,12 +46,6 @@ class CECountryListFragment : CEBaseFragment() {
         subscribeUi()
         bindUi()
         return binding.root
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        mainViewModel.searchKeywordLiveData.postValue("")
-//        mainViewModel.continentLiveData.value = CEConstants.continentItems.also{ it.map { it.selected = false } }
     }
 
     private fun bindUi() {

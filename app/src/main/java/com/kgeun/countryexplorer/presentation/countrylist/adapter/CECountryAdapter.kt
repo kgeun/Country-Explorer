@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
 import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
-import com.kgeun.countryexplorer.presentation.fragment.CECountryListFragmentDirections
+import com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragmentDirections
 
 class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryListResponse>?) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {

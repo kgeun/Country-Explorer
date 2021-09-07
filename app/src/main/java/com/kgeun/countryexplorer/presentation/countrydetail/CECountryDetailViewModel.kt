@@ -1,7 +1,10 @@
 package com.kgeun.countryexplorer.presentation.countrydetail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.kgeun.countryexplorer.data.model.network.CECountryResponse
 import com.kgeun.countryexplorer.data.model.network.CECountryViewItem
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
@@ -17,14 +20,21 @@ class CECountryDetailViewModel @Inject constructor(
     private val CEService: CEService
 ) : ViewModel() {
 
-    var detailLivedata: LiveData<NetworkState<CECountryViewItem?>>? = null
+    var countryDetailLivedata: LiveData<NetworkState<CECountryViewItem?>>
+    private val _countryDetailLiveData = MutableLiveData<String>()
 
-    suspend fun loadCountryDetail(code: String) {
-        detailLivedata = liveDataScope(networkCall = {
-            CEService.fetchCountryDetail(code)
-        }, map = {
-            transformResponseToViewItem(it)
-        })
+    init {
+        countryDetailLivedata = _countryDetailLiveData.switchMap { code ->
+            liveDataScope(networkCall = {
+                CEService.fetchCountryDetail(code)
+            }, map = {
+                transformResponseToViewItem(it)
+            })
+        }
+    }
+
+    fun getCountryDetail(code: String) {
+        _countryDetailLiveData.value = code
     }
 
     private fun transformResponseToViewItem(country: CECountryResponse): CECountryViewItem  {

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="country"
-            type="com.kgeun.countryexplorer.data.model.network.CECountryResponse" />
+            type="com.kgeun.countryexplorer.data.model.network.CECountryViewItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -14,10 +15,12 @@
         android:background="@color/primary_light_grey_1">
         
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/top_head_height"
                 android:background="@color/primary_light_grey_1"
@@ -51,7 +54,7 @@
                     app:layout_collapseParallaxMultiplier="0.7" />
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/anim_toolbar"
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
@@ -83,6 +86,40 @@
                         app:setThumbnailUrl="@{country.flag}" />
 
                 </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/titleToolbarTextSingle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="center_horizontal"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@{country.name}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/basic_black"
+                    android:textSize="17sp"
+                    android:visibility="invisible"
+                    app:layout_collapseMode="pin"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/titleToolbarText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/avatar_margin"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:scrollHorizontally="true"
+                    android:text="@{country.name}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/basic_black"
+                    android:textSize="24sp"
+                    app:layout_collapseMode="pin"
+                    tools:visibility="visible" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

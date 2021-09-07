@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kgeun.bbcharacterexplorer.data.model.network.BBCharacter
-import com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel
+import com.kgeun.countryexplorer.presentation.countrylist.CEMainViewModel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Types
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class DatabaseAndViewModelTest {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private lateinit var mainViewModel: CECountryListViewModel
+    private lateinit var mainViewModel: CEMainViewModel
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -42,7 +42,7 @@ class DatabaseAndViewModelTest {
     fun init() {
         hiltRule.inject()
 
-        mainViewModel = CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
+        mainViewModel = CEMainViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
 
 
         val charactersInputStream: InputStream = context.assets.open("character_result.json")

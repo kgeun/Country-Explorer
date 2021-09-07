@@ -7,8 +7,11 @@ import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.constants.CEConstants
 import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
 import com.kgeun.countryexplorer.data.model.network.CECountryResponse
+import com.kgeun.countryexplorer.data.model.network.CECountryViewItem
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
+import com.kgeun.countryexplorer.extension.liveDataScope
 import com.kgeun.countryexplorer.network.CEService
+import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +21,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class CECountryListViewModel @Inject constructor(
+class CEMainViewModel @Inject constructor(
     private val mainDao: CEMainDao,
     private val CEService: CEService
 ) : ViewModel() {
@@ -28,7 +31,6 @@ class CECountryListViewModel @Inject constructor(
     var searchKeywordLiveData = MutableLiveData<String>()
     var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>()
     var searchKeyword = ""
-    var detailLivedata = MutableLiveData<CECountryResponse?>()
 
     var countriesLiveData = MediatorLiveData<List<CECountryListResponse>?>().apply {
 
@@ -115,11 +117,40 @@ class CECountryListViewModel @Inject constructor(
         }
     }
 
-    suspend fun loadCountryDetail() = withContext(Dispatchers.IO) {
+    suspend fun getCountryDetail() = withContext(Dispatchers.IO) {
         val countriesList = defaultCountriesList.value
     }
 
     private fun saveCountriesData(result: List<CECountryListResponse>) {
         mainDao.insertCountries(result)
+    }
+
+
+
+    var detailLivedata: LiveData<NetworkState<CECountryViewItem?>>? = null
+
+    suspend fun getCountryDetail(code: String) {
+        Log.i("kglee", "call code 1: $code")
+
+        detailLivedata = liveDataScope(networkCall = {
+            Log.i("kglee", "call code 2: $code")
+            CEService.fetchCountryDetail(code)
+        }, map = {
+            transformResponseToViewItem(it)
+        })
+    }
+
+    private fun transformResponseToViewItem(country: CECountryResponse): CECountryViewItem {
+        return country.run {
+            CECountryViewItem(
+                flag = flag,
+                name = name,
+                alpha3Code = alpha3Code,
+                capital = capital,
+                region = region,
+                subregion = subregion,
+                languages = languages
+            )
+        }
     }
 }

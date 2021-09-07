@@ -6,15 +6,15 @@
     <data>
         <variable
             name="continentAdapter"
-            type="com.kgeun.countryexplorer.presentation.adapter.CEContinentAdapter" />
+            type="com.kgeun.countryexplorer.presentation.countrylist.adapter.CEContinentAdapter" />
 
         <variable
             name="countryAdapter"
-            type="com.kgeun.countryexplorer.presentation.adapter.CECountryAdapter" />
+            type="com.kgeun.countryexplorer.presentation.countrylist.adapter.CECountryAdapter" />
 
         <variable
             name="viewModel"
-            type="com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel" />
+            type="com.kgeun.countryexplorer.presentation.countrylist.CEMainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
