@@ -3,8 +3,8 @@ package com.kgeun.countryexplorer.presentation.countrylist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.databinding.ListitemContinentSelectionBinding
+import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 
 class CEContinentAdapter(val parentView: ViewGroup, val continentList: List<CEContinentViewItem>?, val buttonCallback: (CEContinentViewItem) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

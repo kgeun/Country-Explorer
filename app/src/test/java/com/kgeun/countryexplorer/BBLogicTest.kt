@@ -1,10 +1,5 @@
 package com.kgeun.bbcharacterexplorer
 
-import com.kgeun.bbcharacterexplorer.constants.BBConstants
-import com.kgeun.bbcharacterexplorer.utils.BBUtils
-import org.junit.Assert
-import org.junit.Test
-
 class BBLogicTest {
 //    @Test
 //    fun testNumberOfSelectedSeasons() {

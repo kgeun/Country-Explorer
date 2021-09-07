@@ -1,10 +1,9 @@
 package com.kgeun.countryexplorer.presentation.countrydetail
 
-import androidx.lifecycle.*
-import androidx.room.PrimaryKey
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.kgeun.countryexplorer.data.model.network.CECountryResponse
 import com.kgeun.countryexplorer.data.model.network.CECountryViewItem
-import com.kgeun.countryexplorer.data.model.network.CELanguage
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
 import com.kgeun.countryexplorer.extension.liveDataScope
 import com.kgeun.countryexplorer.network.CEService

@@ -1,7 +1,7 @@
 package com.kgeun.countryexplorer.network
 
-import com.kgeun.countryexplorer.data.model.network.CECountryResponse
 import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
+import com.kgeun.countryexplorer.data.model.network.CECountryResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
