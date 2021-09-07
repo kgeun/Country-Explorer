@@ -1,40 +1,40 @@
 package com.kgeun.countryexplorer.constants
 
-import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
+import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 
 object CEConstants {
     val continentItems = arrayListOf(
-        CEContinentItem(
+        CEContinentViewItem(
             "Asia",
             "Asia",
             false
         ),
-        CEContinentItem(
+        CEContinentViewItem(
             "Europe",
             "Europe",
             false
         ),
-        CEContinentItem(
+        CEContinentViewItem(
             "Africa",
             "Africa",
             false
         ),
-        CEContinentItem(
+        CEContinentViewItem(
             "Oceania",
             "Oceania",
             false
         ),
-        CEContinentItem(
+        CEContinentViewItem(
             "Americas",
             "Americas",
             false
         ),
-        CEContinentItem(
+        CEContinentViewItem(
             "Polar",
             "Polar",
             false
         ),
-        CEContinentItem(
+        CEContinentViewItem(
             "etc",
             "",
             false

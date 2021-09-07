@@ -1,9 +1,7 @@
-package com.kgeun.countryexplorer.binding
+package com.kgeun.countryexplorer.extension
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kgeun.countryexplorer.view.adapter.CECountryAdapter
 
 object CERecyclerViewBinding {
     @JvmStatic

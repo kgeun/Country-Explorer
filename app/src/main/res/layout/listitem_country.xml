@@ -7,7 +7,7 @@
     <data>
         <variable
             name="country"
-            type="com.kgeun.countryexplorer.data.model.network.CECountryList" />
+            type="com.kgeun.countryexplorer.data.model.network.CECountryListResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
                     android:id="@+id/imageThumbnail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/black"
+                    android:background="@color/transparent"
                     android:adjustViewBounds="true"
                     app:setThumbnailUrl="@{country.flag}"
                     app:layout_constraintTop_toTopOf="parent"

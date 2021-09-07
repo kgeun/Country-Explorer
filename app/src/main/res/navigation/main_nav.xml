@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/countryListFragment"
-        android:name="com.kgeun.countryexplorer.view.fragment.CECountryListFragment"
+        android:name="com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragment"
         tools:layout="@layout/fragment_country_list">
         <action
             android:id="@+id/list_to_detail"
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.kgeun.countryexplorer.view.fragment.CEDetailFragment"
+        android:name="com.kgeun.countryexplorer.presentation.countrydetail.CECountryDetailFragment"
         tools:layout="@layout/fragment_detail">
     </fragment>
 </navigation>

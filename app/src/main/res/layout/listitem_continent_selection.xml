@@ -7,7 +7,7 @@
     <data>
         <variable
             name="continent"
-            type="com.kgeun.countryexplorer.data.model.ui.CEContinentItem" />
+            type="com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

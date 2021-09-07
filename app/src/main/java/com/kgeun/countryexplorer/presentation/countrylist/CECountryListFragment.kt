@@ -1,36 +1,30 @@
-package com.kgeun.countryexplorer.view.fragment
+package com.kgeun.countryexplorer.presentation.countrylist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.kgeun.countryexplorer.constants.CEConstants
-import com.kgeun.countryexplorer.data.model.network.CECountryList
-import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
+import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
 import com.kgeun.countryexplorer.databinding.FragmentCountryListBinding
-import com.kgeun.countryexplorer.view.CEBaseFragment
-import com.kgeun.countryexplorer.view.adapter.CECountryAdapter
-import com.kgeun.countryexplorer.view.adapter.CEContinentAdapter
-import com.kgeun.countryexplorer.viewmodel.CEMainViewModel
+import com.kgeun.countryexplorer.presentation.CEBaseFragment
+import com.kgeun.countryexplorer.presentation.countrylist.adapter.CECountryAdapter
+import com.kgeun.countryexplorer.presentation.countrylist.adapter.CEContinentAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CECountryListFragment : CEBaseFragment() {
     private lateinit var binding: FragmentCountryListBinding
-    val mainViewModel: CEMainViewModel by viewModels()
+    val countryListViewModel: CECountryListViewModel by viewModels()
     @Inject
     lateinit var mainDao: CEMainDao
     var countryAdapter: CECountryAdapter? = null
 
-    var callback = { item: CEContinentItem ->
-        mainViewModel.continentLiveData.postValue(
-            mainViewModel.continentLiveData.value.also {
+    var callback = { item: CEContinentViewItem ->
+        countryListViewModel.continentLiveData.postValue(
+            countryListViewModel.continentLiveData.value.also {
                 it?.forEach checked@{
                     if (it.text == item.text) {
                         it.selected = item.selected
@@ -61,11 +55,11 @@ class CECountryListFragment : CEBaseFragment() {
     }
 
     private fun bindUi() {
-        binding.viewModel = mainViewModel
+        binding.viewModel = countryListViewModel
     }
 
     private fun subscribeUi() {
-        mainViewModel.countriesLiveData.observe(viewLifecycleOwner) {
+        countryListViewModel.countriesLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (binding.countryAdapter == null) {
                     binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, ArrayList(it))
@@ -75,7 +69,7 @@ class CECountryListFragment : CEBaseFragment() {
             }
         }
 
-        mainViewModel.continentLiveData.observe(viewLifecycleOwner) {
+        countryListViewModel.continentLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (binding.continentAdapter == null) {
                     binding.continentAdapter = CEContinentAdapter(binding.root as ViewGroup, it, callback)

@@ -1,11 +1,10 @@
-package com.kgeun.countryexplorer.view.activity
+package com.kgeun.countryexplorer.presentation
 
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.ActivityMainBinding
-import com.kgeun.countryexplorer.view.CEBaseActivity
 
 
 class BBMainActivity : CEBaseActivity() {

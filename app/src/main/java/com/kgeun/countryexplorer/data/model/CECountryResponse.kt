@@ -7,10 +7,9 @@ import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
-@Entity(tableName = "country")
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class CECountryList(
+data class CECountryResponse(
     val flag: String = "",
     val name: String = "",
     @PrimaryKey

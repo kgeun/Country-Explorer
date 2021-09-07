@@ -1,11 +1,12 @@
-package com.kgeun.countryexplorer.view.activity
+package com.kgeun.countryexplorer.presentation.splash
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.ActivitySplashBinding
-import com.kgeun.countryexplorer.view.CEBaseActivity
+import com.kgeun.countryexplorer.presentation.CEBaseActivity
+import com.kgeun.countryexplorer.presentation.BBMainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

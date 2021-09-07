@@ -1,17 +1,10 @@
-package com.kgeun.countryexplorer.binding
+package com.kgeun.countryexplorer.extension
 
-import android.R
-import android.app.Activity
-import android.content.ContextWrapper
 import android.content.Intent
-import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.kgeun.countryexplorer.data.model.network.CELanguage

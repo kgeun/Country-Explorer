@@ -1,4 +1,4 @@
-package com.kgeun.countryexplorer.view
+package com.kgeun.countryexplorer.presentation
 
 import androidx.fragment.app.Fragment
 

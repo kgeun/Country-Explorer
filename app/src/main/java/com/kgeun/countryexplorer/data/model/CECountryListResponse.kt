@@ -10,7 +10,7 @@ import java.io.Serializable
 @Entity(tableName = "country")
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class CECountry(
+data class CECountryListResponse(
     val flag: String = "",
     val name: String = "",
     @PrimaryKey
@@ -18,5 +18,5 @@ data class CECountry(
     val capital: String = "",
     val region: String = "",
     val subregion: String = "",
-    val languages: List<CELanguage> = arrayListOf()
+    val languages: List<CELanguage> = listOf()
 ): Serializable, Parcelable

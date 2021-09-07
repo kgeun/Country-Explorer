@@ -1,17 +1,16 @@
-package com.kgeun.countryexplorer.view.adapter
+package com.kgeun.countryexplorer.presentation.countrylist.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kgeun.countryexplorer.R
-import com.kgeun.countryexplorer.data.model.network.CECountryList
+import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
 import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
-import com.kgeun.countryexplorer.view.fragment.CECountryListFragmentDirections
+import com.kgeun.countryexplorer.presentation.fragment.CECountryListFragmentDirections
 
-class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryList>?) :
+class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryListResponse>?) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -26,7 +25,7 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CEC
         return countryList?.size ?: 0
     }
 
-    fun setList(list: List<CECountryList>) {
+    fun setList(list: List<CECountryListResponse>) {
         countryList!!.clear()
         countryList!!.addAll(list)
         notifyDataSetChanged()
@@ -35,7 +34,7 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CEC
     inner class CountryHolder(
         private val binding: ListitemCountryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CECountryList) {
+        fun bind(item: CECountryListResponse) {
             binding.apply {
                 country = item
 

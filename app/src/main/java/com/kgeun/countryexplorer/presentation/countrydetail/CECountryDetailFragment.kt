@@ -1,20 +1,19 @@
-package com.kgeun.countryexplorer.view.fragment
+package com.kgeun.countryexplorer.presentation.countrydetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.kgeun.countryexplorer.databinding.FragmentDetailBinding
-import com.kgeun.countryexplorer.view.CEBaseFragment
-import com.kgeun.countryexplorer.viewmodel.CEMainViewModel
+import com.kgeun.countryexplorer.presentation.CEBaseFragment
+import com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CEDetailFragment : CEBaseFragment() {
+class CECountryDetailFragment : CEBaseFragment() {
     private lateinit var binding: FragmentDetailBinding
-    val mainViewModel: CEMainViewModel by viewModels()
+    val mainViewModel: CECountryListViewModel by viewModels()
     var alphaCode: String = ""
 
     override fun onCreateView(

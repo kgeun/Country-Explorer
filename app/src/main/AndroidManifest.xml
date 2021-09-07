@@ -16,13 +16,13 @@
         android:name="com.kgeun.countryexplorer.CEApplication"
         android:theme="@style/Theme.CountryExplorer"
         tools:replace="android:allowBackup,android:label">
-        <activity android:name="com.kgeun.countryexplorer.view.activity.BBSplashActivity">
+        <activity android:name="com.kgeun.countryexplorer.presentation.splash.BBSplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kgeun.countryexplorer.view.activity.BBMainActivity"
+        <activity android:name="com.kgeun.countryexplorer.presentation.BBMainActivity"
             android:windowSoftInputMode="stateHidden" />
     </application>
 

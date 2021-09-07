@@ -6,7 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.kgeun.bbcharacterexplorer.data.model.network.BBCharacter
 import com.kgeun.bbcharacterexplorer.data.persistance.BBMainDao
 import com.kgeun.bbcharacterexplorer.network.BBService
-import com.kgeun.countryexplorer.viewmodel.CEMainViewModel
+import com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -39,7 +39,7 @@ class AnalyticsAdapter @Inject constructor(
 @RunWith(AndroidJUnit4::class)
 class CEServiceTest {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private lateinit var mainViewModel: CEMainViewModel
+    private lateinit var countryListViewModel: CECountryListViewModel
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -53,8 +53,8 @@ class CEServiceTest {
     fun init() {
         hiltRule.inject()
 
-        mainViewModel = CEMainViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
-        mainViewModel.viewModelScope.launch {
+        countryListViewModel = CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
+        countryListViewModel.viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 analyticsAdapter.mainDao.truncateCharacters()
             }
@@ -75,7 +75,7 @@ class CEServiceTest {
 
     @Test
     fun testCharacterFetch() {
-        mainViewModel.viewModelScope.launch {
+        countryListViewModel.viewModelScope.launch {
             try {
                 val result = analyticsAdapter.bbService.fetchCharacters()
                 assertEquals(result[0], charactersList?.get(0))

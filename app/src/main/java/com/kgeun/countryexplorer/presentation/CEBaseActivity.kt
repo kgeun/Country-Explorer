@@ -1,4 +1,4 @@
-package com.kgeun.countryexplorer.view
+package com.kgeun.countryexplorer.presentation
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle

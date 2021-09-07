@@ -1,15 +1,15 @@
-package com.kgeun.countryexplorer.viewmodel
+package com.kgeun.countryexplorer.presentation.countrylist
 
 import android.util.Log
 import androidx.lifecycle.*
 import com.kgeun.countryexplorer.CEApplication
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.constants.CEConstants
-import com.kgeun.countryexplorer.data.model.network.CECountryList
-import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
+import com.kgeun.countryexplorer.data.model.network.CECountryResponse
+import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
+import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
 import com.kgeun.countryexplorer.network.CEService
-import com.kgeun.countryexplorer.utils.CEUtils.createDynamicQueryForKeywordAndContinentSearch
 import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class CEMainViewModel @Inject constructor(
+class CECountryListViewModel @Inject constructor(
     private val mainDao: CEMainDao,
     private val CEService: CEService
 ) : ViewModel() {
@@ -26,11 +26,11 @@ class CEMainViewModel @Inject constructor(
     var defaultCountriesList = mainDao.getCountriesList()
     var errorLiveData = MutableLiveData<(String?) -> Unit> {}
     var searchKeywordLiveData = MutableLiveData<String>()
-    var continentLiveData = MutableLiveData<List<CEContinentItem>?>()
+    var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>()
     var searchKeyword = ""
-    var countryList: List<CECountryList> = listOf()
+    var detailLivedata = MutableLiveData<CECountryResponse?>()
 
-    var countriesLiveData = MediatorLiveData<List<CECountryList>?>().apply {
+    var countriesLiveData = MediatorLiveData<List<CECountryListResponse>?>().apply {
 
         addSource(defaultCountriesList) { value ->
             setValue(value)
@@ -95,10 +95,10 @@ class CEMainViewModel @Inject constructor(
             }
         }
         searchKeywordLiveData.postValue("")
-        continentLiveData.postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentItem>)
+        continentLiveData.postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>)
     }
 
-    fun getCountryByCode(code: String): LiveData<CECountryList?> {
+    fun getCountryByCode(code: String): LiveData<CECountryListResponse?> {
         return mainDao.getCountryByCode(code)
     }
 
@@ -115,7 +115,11 @@ class CEMainViewModel @Inject constructor(
         }
     }
 
-    private fun saveCountriesData(result: List<CECountryList>) {
+    suspend fun loadCountryDetail() = withContext(Dispatchers.IO) {
+        val countriesList = defaultCountriesList.value
+    }
+
+    private fun saveCountriesData(result: List<CECountryListResponse>) {
         mainDao.insertCountries(result)
     }
 }

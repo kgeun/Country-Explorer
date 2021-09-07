@@ -1,12 +1,19 @@
 package com.kgeun.countryexplorer.network
 
-import com.kgeun.countryexplorer.data.model.network.CECountryList
+import com.kgeun.countryexplorer.data.model.network.CECountryResponse
+import com.kgeun.countryexplorer.data.model.network.CECountryListResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface CEService {
 
     @GET("/rest/v2/all?fields=name;capital;region;subregion;flag;alpha3Code;languages")
-    suspend fun fetchCountriesList(): List<CECountryList>
+    suspend fun fetchCountriesList(): List<CECountryListResponse>
+
+    @GET("/rest/v2/alpha/{code}")
+    suspend fun fetchCountryDetail(
+        @Path("code") alphaCode: String
+    ): CECountryResponse
 
     companion object {
         const val REST_COUNTRIES_API_URL = "https://restcountries.eu/"
