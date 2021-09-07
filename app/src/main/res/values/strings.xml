@@ -8,9 +8,9 @@
     <string name="unknown_error">Unknown error</string>
     <string name="title">Country Explorer</string>
     <string name="search">Search</string>
-    <string name="region_title">Region</string>
-    <string name="capital_title">Capital</string>
-    <string name="language_title">Language</string>
+    <string name="region_title">🌐\u0020\u0020Region</string>
+    <string name="capital_title">🏛️\u0020\u0020Capital</string>
+    <string name="language_title">🔤\u0020\u0020Language</string>
     <string name="season_appearance">Season Appearance</string>
     <string name="wiki">Wiki</string>
     <string name="occupation">Occupation</string>
