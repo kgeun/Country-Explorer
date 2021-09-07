@@ -17,7 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CECountryListFragment : CEBaseFragment() {
     private lateinit var binding: FragmentCountryListBinding
-    val countryListViewModel: CEMainViewModel by viewModels()
+    val countryListViewModel: CECountryListViewModel by viewModels()
     @Inject
     lateinit var mainDao: CEMainDao
     var countryAdapter: CECountryAdapter? = null

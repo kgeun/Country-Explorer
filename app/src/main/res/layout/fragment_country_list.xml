@@ -14,7 +14,7 @@
 
         <variable
             name="viewModel"
-            type="com.kgeun.countryexplorer.presentation.countrylist.CEMainViewModel" />
+            type="com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

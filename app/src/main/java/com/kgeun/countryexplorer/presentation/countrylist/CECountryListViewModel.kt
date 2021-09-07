@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class CEMainViewModel @Inject constructor(
+class CECountryListViewModel @Inject constructor(
     private val mainDao: CEMainDao,
     private val CEService: CEService
 ) : ViewModel() {
@@ -76,12 +76,8 @@ class CEMainViewModel @Inject constructor(
                         } else if (numberOfSelectedButtons(value) == 0 && searchKeyword != "") {
                             mainDao.findCountryByKeywordSync(searchKeyword)
                         } else if (numberOfSelectedButtons(value) > 0 && searchKeyword == "") {
-                            Log.i("kglee", "mainDao.findCountryByContinentListSync(continentList)")
                             mainDao.findCountryByContinentListSync(continentList)
                         } else {
-                            Log.i("kglee", "mainDao.findCountryByKeywordAndSeasonListSync(searchKeyword, continentList)")
-                            Log.i("kglee", "numberOfSelectedButtons(value) : ${numberOfSelectedButtons(value)}")
-                            Log.i("kglee", "continentList size : ${continentList}")
                             mainDao.findCountryByKeywordAndSeasonListSync(searchKeyword, continentList)
                         }
                     )
@@ -125,32 +121,4 @@ class CEMainViewModel @Inject constructor(
         mainDao.insertCountries(result)
     }
 
-
-
-    var detailLivedata: LiveData<NetworkState<CECountryViewItem?>>? = null
-
-    suspend fun getCountryDetail(code: String) {
-        Log.i("kglee", "call code 1: $code")
-
-        detailLivedata = liveDataScope(networkCall = {
-            Log.i("kglee", "call code 2: $code")
-            CEService.fetchCountryDetail(code)
-        }, map = {
-            transformResponseToViewItem(it)
-        })
-    }
-
-    private fun transformResponseToViewItem(country: CECountryResponse): CECountryViewItem {
-        return country.run {
-            CECountryViewItem(
-                flag = flag,
-                name = name,
-                alpha3Code = alpha3Code,
-                capital = capital,
-                region = region,
-                subregion = subregion,
-                languages = languages
-            )
-        }
-    }
 }
