@@ -11,7 +11,7 @@ import com.kgeun.countryexplorer.data.model.network.CECountryList
 import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
 import com.kgeun.countryexplorer.view.fragment.CECountryListFragmentDirections
 
-class CECountryAdapter(val parentView: ViewGroup, var countryList: List<CECountryList>?) :
+class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryList>?) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -24,6 +24,12 @@ class CECountryAdapter(val parentView: ViewGroup, var countryList: List<CECountr
 
     override fun getItemCount(): Int {
         return countryList?.size ?: 0
+    }
+
+    fun setList(list: List<CECountryList>) {
+        countryList!!.clear()
+        countryList!!.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class CountryHolder(

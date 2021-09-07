@@ -33,6 +33,8 @@
     <color name="basic_black_0.8">#CC292929</color>
     <color name="basic_black_0.5">#80292929</color>
     <color name="basic_black_0.4">#66292929</color>
+    <color name="basic_black_0.2">#33292929</color>
+    <color name="basic_black_0.1">#1A292929</color>
 
     <color name="solid_grey_0.5">#949494</color>
     <color name="solid_grey_0.3">#BEBEBE</color>

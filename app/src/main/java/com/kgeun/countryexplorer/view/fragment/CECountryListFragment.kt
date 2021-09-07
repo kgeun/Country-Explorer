@@ -26,12 +26,15 @@ class CECountryListFragment : CEBaseFragment() {
     val mainViewModel: CEMainViewModel by viewModels()
     @Inject
     lateinit var mainDao: CEMainDao
+    var countryAdapter: CECountryAdapter? = null
+
     var callback = { item: CEContinentItem ->
         mainViewModel.continentLiveData.postValue(
             mainViewModel.continentLiveData.value.also {
-                it?.forEach {
+                it?.forEach checked@{
                     if (it.text == item.text) {
                         it.selected = item.selected
+                        return@checked
                     }
                 }
             }
@@ -53,25 +56,22 @@ class CECountryListFragment : CEBaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        mainViewModel.searchKeywordLiveData.postValue("")
-        mainViewModel.continentLiveData.value = CEConstants.continentItems.also{ it.map { it.selected = false } }
+//        mainViewModel.searchKeywordLiveData.postValue("")
+//        mainViewModel.continentLiveData.value = CEConstants.continentItems.also{ it.map { it.selected = false } }
     }
 
     private fun bindUi() {
         binding.viewModel = mainViewModel
-        binding.countryList.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
     }
 
     private fun subscribeUi() {
         mainViewModel.countriesLiveData.observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
+            if (it != null) {
                 if (binding.countryAdapter == null) {
-                    binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, it)
+                    binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, ArrayList(it))
                 } else {
-                    (binding.countryAdapter as CECountryAdapter).countryList = it
-                    (binding.countryAdapter as CECountryAdapter).notifyDataSetChanged()
+                    (binding.countryAdapter as CECountryAdapter).setList(it)
                 }
-
             }
         }
 

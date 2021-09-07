@@ -1,5 +1,6 @@
 package com.kgeun.countryexplorer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.kgeun.countryexplorer.CEApplication
 import com.kgeun.countryexplorer.R
@@ -8,7 +9,8 @@ import com.kgeun.countryexplorer.data.model.network.CECountryList
 import com.kgeun.countryexplorer.data.model.ui.CEContinentItem
 import com.kgeun.countryexplorer.data.persistance.CEMainDao
 import com.kgeun.countryexplorer.network.CEService
-import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedSeasons
+import com.kgeun.countryexplorer.utils.CEUtils.createDynamicQueryForKeywordAndContinentSearch
+import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +28,7 @@ class CEMainViewModel @Inject constructor(
     var searchKeywordLiveData = MutableLiveData<String>()
     var continentLiveData = MutableLiveData<List<CEContinentItem>?>()
     var searchKeyword = ""
+    var countryList: List<CECountryList> = listOf()
 
     var countriesLiveData = MediatorLiveData<List<CECountryList>?>().apply {
 
@@ -43,11 +46,11 @@ class CEMainViewModel @Inject constructor(
                     } ?: listOf()
 
                     postValue(
-                        if (value == "" && numberOfSelectedSeasons(continentLiveData.value) == 0) {
+                        if (value == "" && numberOfSelectedButtons(continentLiveData.value) == 0) {
                             mainDao.getCountryListSync()
-                        } else if (value == "" && numberOfSelectedSeasons(continentLiveData.value) > 0) {
+                        } else if (value == "" && numberOfSelectedButtons(continentLiveData.value) > 0) {
                             mainDao.findCountryByContinentListSync(continentList)
-                        } else if (value != "" && numberOfSelectedSeasons(continentLiveData.value) == 0) {
+                        } else if (value != "" && numberOfSelectedButtons(continentLiveData.value) == 0) {
                             mainDao.findCountryByKeywordSync(searchKeyword)
                         } else {
                             mainDao.findCountryByKeywordAndSeasonListSync(value, continentList)
@@ -66,13 +69,17 @@ class CEMainViewModel @Inject constructor(
                     val continentList = value.filter { it.selected }.map { it.region }.toList()
 
                     postValue(
-                        if (numberOfSelectedSeasons(value) == 0 && searchKeyword == "") {
+                        if (numberOfSelectedButtons(value) == 0 && searchKeyword == "") {
                             mainDao.getCountryListSync()
-                        } else if (numberOfSelectedSeasons(value) == 0 && searchKeyword != "") {
+                        } else if (numberOfSelectedButtons(value) == 0 && searchKeyword != "") {
                             mainDao.findCountryByKeywordSync(searchKeyword)
-                        } else if (numberOfSelectedSeasons(value) > 0 && searchKeyword == "") {
+                        } else if (numberOfSelectedButtons(value) > 0 && searchKeyword == "") {
+                            Log.i("kglee", "mainDao.findCountryByContinentListSync(continentList)")
                             mainDao.findCountryByContinentListSync(continentList)
                         } else {
+                            Log.i("kglee", "mainDao.findCountryByKeywordAndSeasonListSync(searchKeyword, continentList)")
+                            Log.i("kglee", "numberOfSelectedButtons(value) : ${numberOfSelectedButtons(value)}")
+                            Log.i("kglee", "continentList size : ${continentList}")
                             mainDao.findCountryByKeywordAndSeasonListSync(searchKeyword, continentList)
                         }
                     )

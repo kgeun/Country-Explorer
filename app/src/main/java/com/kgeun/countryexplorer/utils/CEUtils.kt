@@ -11,7 +11,6 @@ object CEUtils {
         Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
     }
 
-    fun numberOfSelectedSeasons(list: List<CEContinentItem>?) :Int =
-        list?.let { list.filter { it.selected }.map { it.region }.toList().size } ?: 0
-
+    fun numberOfSelectedButtons(list: List<CEContinentItem>?) :Int =
+        list?.let { list.filter { it.selected }.toList().size } ?: 0
 }
