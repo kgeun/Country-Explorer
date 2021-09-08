@@ -1,18 +1,14 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.kgeun.countryexplorer.CEApplication
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.constants.CEConstants
-import com.kgeun.countryexplorer.extension.callbacks
-import com.kgeun.countryexplorer.extension.liveDataScope
 import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 import com.kgeun.countryexplorer.model.entity.CELanguageEntity
 import com.kgeun.countryexplorer.model.response.CECountryListResponse
-import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.network.CEService
-import com.kgeun.countryexplorer.network.NetworkState
+import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons

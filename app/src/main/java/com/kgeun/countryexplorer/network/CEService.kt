@@ -1,6 +1,5 @@
 package com.kgeun.countryexplorer.network
 
-import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 import com.kgeun.countryexplorer.model.response.CECountryListResponse
 import com.kgeun.countryexplorer.model.response.CECountryResponse
 import retrofit2.http.GET

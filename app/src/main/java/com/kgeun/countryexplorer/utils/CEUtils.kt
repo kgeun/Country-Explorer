@@ -2,8 +2,6 @@ package com.kgeun.countryexplorer.utils
 
 import android.content.Context
 import android.widget.Toast
-import com.kgeun.countryexplorer.databinding.FragmentDetailBinding
-import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 
 object CEUtils {

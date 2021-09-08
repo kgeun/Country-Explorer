@@ -2,7 +2,6 @@ package com.kgeun.countryexplorer.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kgeun.countryexplorer.model.entity.CELanguageEntity
 
 @Entity(tableName = "country")
 data class CECountryListEntity(

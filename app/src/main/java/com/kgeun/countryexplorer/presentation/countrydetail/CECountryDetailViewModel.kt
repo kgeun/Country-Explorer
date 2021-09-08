@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import com.kgeun.countryexplorer.model.response.CECountryResponse
-import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
-import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.extension.liveDataScope
+import com.kgeun.countryexplorer.model.response.CECountryResponse
 import com.kgeun.countryexplorer.network.CEService
 import com.kgeun.countryexplorer.network.NetworkState
+import com.kgeun.countryexplorer.persistance.CEMainDao
+import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

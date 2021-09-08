@@ -1,13 +1,9 @@
 package com.kgeun.countryexplorer.extension
 
-import android.content.Intent
-import android.net.Uri
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.kgeun.countryexplorer.model.entity.CELanguageEntity
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 
 
