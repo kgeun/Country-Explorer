@@ -25,21 +25,3 @@ inline fun <T, V> ViewModel.liveDataScope(
             }
     }
 }
-
-inline fun <T> ViewModel.callbacks(
-    crossinline networkCall: suspend () -> T,
-    crossinline onSuccess: (type: T) -> Unit,
-    crossinline onFail: (type: Throwable) -> Unit,
-): LiveData<Pair<Int, String>> {
-    return liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-        Log.i("kglee", "loading 1")
-        emit(CEConstants.STATE_LOADING to "Loading")
-        runCatching {
-            networkCall.invoke()
-        }.onSuccess {
-            onSuccess(it)
-        }.onFailure {
-            onFail(it)
-        }
-    }
-}

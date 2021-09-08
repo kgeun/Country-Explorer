@@ -1,15 +1,12 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.kgeun.countryexplorer.CEApplication
-import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.constants.CEConstants
-import com.kgeun.countryexplorer.extension.callbacks
 import com.kgeun.countryexplorer.model.entity.CECountryListEntity
-import com.kgeun.countryexplorer.model.entity.CELanguageEntity
-import com.kgeun.countryexplorer.model.response.CECountryListResponse
+import com.kgeun.countryexplorer.model.entity.CEEntityUtil.transformEntityToViewItem
+import com.kgeun.countryexplorer.model.response.CEResponseUtil.transformResponseToEntity
 import com.kgeun.countryexplorer.network.CEService
+import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
@@ -17,6 +14,7 @@ import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -26,56 +24,37 @@ class CECountryListViewModel @Inject constructor(
     private val CEService: CEService
 ) : ViewModel() {
 
-    val countriesList = mainDao.getCountriesList()
+    private val countriesList = mainDao.getCountriesList()
     var searchKeywordLiveData = MutableLiveData<String>().apply { postValue("")}
     var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>().apply { postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>) }
-    var networkLiveData = MutableLiveData<Pair<Int, String>>().apply { postValue( CEConstants.STATE_LOADING to "Loading" ) }
+    var networkLiveData = MutableLiveData<NetworkState<Nothing>>().apply { postValue(NetworkState.Loading) }
 
     var countriesLiveData = MediatorLiveData<List<CECountryListViewItem>?>().apply {
         addSource(countriesList) { value -> setValue(value!!.map(::transformEntityToViewItem)) }
 
-        addSource(searchKeywordLiveData) { value ->
+        addSource(searchKeywordLiveData) { keyword ->
             viewModelScope.launch {
                 withContext(Dispatchers.Default) {
                     val continentList = continentLiveData.value?.let {
                         continentLiveData.value!!.filter { it.selected }.map { it.region }.toList()
                     } ?: listOf()
 
-                    val list = if (value == "" && numberOfSelectedButtons(continentLiveData.value) == 0) {
-                        mainDao.getCountryListSync()
-                    } else if (value == "" && numberOfSelectedButtons(continentLiveData.value) > 0) {
-                        mainDao.findCountryByContinentListSync(continentList)
-                    } else if (value != "" && numberOfSelectedButtons(continentLiveData.value) == 0) {
-                        mainDao.findCountryByKeywordSync(value)
-                    } else {
-                        mainDao.findCountryByKeywordAndSeasonListSync(value, continentList)
-                    }
-
-                    postValue(list!!.map(::transformEntityToViewItem))
+                    postValue(getSubListByCondition(keyword, continentLiveData.value!!, continentList))
                 }
             }
         }
 
-        addSource(continentLiveData) check@{ value ->
-            if (value == null)
-                return@check
+        addSource(continentLiveData) ctnt@{ continent ->
+            if (continent == null) {
+                return@ctnt
+            }
 
             viewModelScope.launch {
                 withContext(Dispatchers.Default) {
-                    val continentList = value.filter { it.selected }.map { it.region }.toList()
+                    val continentList = continent.filter { it.selected }.map { it.region }.toList()
                     val keyword = searchKeywordLiveData.value!!
 
-                    val list = if (numberOfSelectedButtons(value) == 0 && keyword == "") {
-                        mainDao.getCountryListSync()
-                    } else if (numberOfSelectedButtons(value) == 0 && keyword != "") {
-                        mainDao.findCountryByKeywordSync(keyword)
-                    } else if (numberOfSelectedButtons(value) > 0 && keyword == "") {
-                        mainDao.findCountryByContinentListSync(continentList)
-                    } else {
-                        mainDao.findCountryByKeywordAndSeasonListSync(keyword, continentList)
-                    }
-
-                    postValue(list!!.map(::transformEntityToViewItem))
+                    postValue(getSubListByCondition(keyword, continentLiveData.value!!, continentList))
                 }
             }
         }
@@ -86,65 +65,36 @@ class CECountryListViewModel @Inject constructor(
             try {
                 viewModelScope.launch {
                     withContext(Dispatchers.Default) {
-                        saveCountriesData(
+                        mainDao.insertCountries(
                             CEService.fetchCountriesList().map(::transformResponseToEntity)
                         )
                     }
                 }
             } catch (e: Exception) {
-                networkLiveData.postValue( CEConstants.STATE_LOADED to "Loaded" )
+                networkLiveData.postValue(NetworkState.Error(e))
             }
         }
+    }
+
+    private fun getSubListByCondition(
+        keyword: String,
+        continentViewList: List<CEContinentViewItem>,
+        continentList: List<String>): List<CECountryListViewItem> {
+
+        val list = if (keyword == "" && numberOfSelectedButtons(continentViewList) == 0) {
+            mainDao.getCountryListSync()
+        } else if (keyword == "" && numberOfSelectedButtons(continentViewList) > 0) {
+            mainDao.findCountryByContinentListSync(continentList)
+        } else if (keyword != "" && numberOfSelectedButtons(continentViewList) == 0) {
+            mainDao.findCountryByKeywordSync(keyword)
+        } else {
+            mainDao.findCountryByKeywordAndSeasonListSync(keyword, continentList)
+        }
+
+        return list!!.map(::transformEntityToViewItem)
     }
 
     fun getCountryByCode(code: String): LiveData<CECountryListEntity?> {
         return mainDao.getCountryByCode(code)
     }
-
-    private fun saveCountriesData(result: List<CECountryListEntity>) {
-        mainDao.insertCountries(result)
-    }
-
-    private fun transformResponseToEntity(response: CECountryListResponse): CECountryListEntity {
-        return response.run {
-            CECountryListEntity(
-                flag = flag,
-                name = name,
-                alpha3Code = alpha3Code,
-                capital = capital,
-                region = region,
-                subregion = subregion,
-                languages = languages.map {
-                    CELanguageEntity(
-                        iso639_1 = it.iso639_1,
-                        iso639_2 = it.iso639_2,
-                        name = it.name,
-                        nativeName = it.nativeName
-                    )
-                } as ArrayList<CELanguageEntity>
-            )
-        }
-    }
-
-    private fun transformEntityToViewItem(entity: CECountryListEntity): CECountryListViewItem {
-        return entity.run {
-            CECountryListViewItem(
-                flag = flag,
-                name = name,
-                alpha3Code = alpha3Code,
-                capital = capital,
-                region = region,
-                subregion = subregion,
-                languages = languages?.map {
-                    CECountryListViewItem.CELanguageViewItem(
-                        iso639_1 = it.iso639_1,
-                        iso639_2 = it.iso639_2,
-                        name = it.name,
-                        nativeName = it.nativeName
-                    )
-                }
-            )
-        }
-    }
-
 }
