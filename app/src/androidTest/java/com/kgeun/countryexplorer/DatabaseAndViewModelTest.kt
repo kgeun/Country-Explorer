@@ -3,6 +3,7 @@ package com.kgeun.countryexplorer
 import androidx.lifecycle.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.kgeun.countryexplorer.constants.CEConstants
 import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 import com.kgeun.countryexplorer.model.entity.CEEntityUtil
 import com.kgeun.countryexplorer.model.entity.CELanguageEntity
@@ -104,6 +105,35 @@ class DatabaseAndViewModelTest {
         }
     }
 
+
+    @Test
+    fun testFilteringWithTypingKoreaAndSelectButtonsWithoutAsia() {
+        countryListViewModel.viewModelScope.launch {
+            countryListViewModel.refreshCountryData()
+
+        }
+
+        countryListViewModel.viewModelScope.launch {
+            countryListViewModel.searchKeywordLiveData.postValue("Korea")
+            countryListViewModel.continentLiveData.postValue(
+                CEConstants.continentItems.also {
+                    it.forEach {
+                        if (it.region != "Asia") {
+                            it.selected = true
+                        }
+                    }
+                }
+            )
+            countryListViewModel.countriesLiveData.observeOnce {
+                if (it != null) {
+                    assertEquals(
+                        0,
+                        it.size
+                    )
+                }
+            }
+        }
+    }
 
 }
 
