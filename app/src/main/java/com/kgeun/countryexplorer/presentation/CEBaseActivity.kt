@@ -10,16 +10,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 open class CEBaseActivity : AppCompatActivity() {
 
-    var errorLiveData = MutableLiveData<(String?) -> Unit> {}
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setOrientation()
-        registerErrorHandler()
-    }
-
-    private fun registerErrorHandler() {
-        errorLiveData.postValue (CEUtils.errorHandler(this))
     }
 
     private fun setOrientation() {

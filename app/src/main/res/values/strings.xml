@@ -16,4 +16,5 @@
     <string name="occupation">Occupation</string>
     <string name="status">Status</string>
     <string name="season_appearenace">Season Appearenace</string>
+    <string name="unknown_error_message">Unknown Error</string>
 </resources>

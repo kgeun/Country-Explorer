@@ -1,16 +1,21 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
+import android.net.Network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.FragmentCountryListBinding
+import com.kgeun.countryexplorer.extension.observe
+import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.presentation.CEBaseFragment
 import com.kgeun.countryexplorer.presentation.countrylist.adapter.CEContinentAdapter
 import com.kgeun.countryexplorer.presentation.countrylist.adapter.CECountryAdapter
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
+import com.kgeun.countryexplorer.utils.CEUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -53,7 +58,7 @@ class CECountryListFragment : CEBaseFragment() {
     }
 
     private fun subscribeUi() {
-        countryListViewModel.countriesLiveData.observe(viewLifecycleOwner) {
+        observe(countryListViewModel.countriesLiveData) {
             if (it != null) {
                 if (binding.countryAdapter == null) {
                     binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, ArrayList(it))
@@ -63,12 +68,31 @@ class CECountryListFragment : CEBaseFragment() {
             }
         }
 
-        countryListViewModel.continentLiveData.observe(viewLifecycleOwner) {
+        observe(countryListViewModel.continentLiveData) {
             if (it != null) {
+                if (it.isNotEmpty()) {
+                    binding.loadingIndicator.stop()
+                }
                 if (binding.continentAdapter == null) {
                     binding.continentAdapter = CEContinentAdapter(binding.root as ViewGroup, it, callback)
                 } else {
                     binding.continentAdapter!!.notifyDataSetChanged()
+                }
+            }
+        }
+
+        observe(countryListViewModel.networkLiveData) {
+            binding.loadingIndicator.apply {
+                if (it == null || it is NetworkState.Loading) {
+                    start()
+                } else if (it is NetworkState.Error) {
+                    stop()
+                    CEUtils.errorHandler(
+                        requireContext(),
+                        it.throwable ?: Throwable(getString(R.string.unknown_error_message))
+                    )
+                } else {
+                    stop()
                 }
             }
         }

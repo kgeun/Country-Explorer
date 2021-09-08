@@ -5,8 +5,8 @@ import android.widget.Toast
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 
 object CEUtils {
-    fun errorHandler(context: Context): (String?) -> Unit = {
-        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+    fun errorHandler(context: Context, throwable: Throwable): Unit {
+        Toast.makeText(context, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
     fun numberOfSelectedButtons(list: List<CEContinentViewItem>?) :Int =
