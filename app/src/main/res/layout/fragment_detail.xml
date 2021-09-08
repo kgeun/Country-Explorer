@@ -51,6 +51,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/top_head_background_height"
                         android:background="@drawable/rcs_reverse_basicblack_gradient_1" />
+
+                    <ImageView
+                        android:id="@+id/backBtn"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="top|start"
+                        android:padding="15dp"
+                        app:tint="@color/white"
+                        android:src="@drawable/ic_left_arrow"/>
                 </FrameLayout>
 
                 <FrameLayout
@@ -145,6 +154,39 @@
                 android:orientation="vertical"
                 android:layout_marginTop="20dp"
                 android:paddingHorizontal="30dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/basic_black_0.2" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/native_name"
+                        android:textColor="@color/basic_black_0.5"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right"
+                        android:includeFontPadding="false"
+                        android:text="@{country.nativeName}"
+                        android:textColor="@color/basic_black_0.8"
+                        android:lineSpacingExtra="6sp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:ellipsize="end" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View
                     android:layout_width="match_parent"
@@ -278,6 +320,109 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/basic_black_0.2" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/latlng"
+                        android:textColor="@color/basic_black_0.5"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right"
+                        android:includeFontPadding="false"
+                        android:text="@{country.latlng[0] + `, ` + country.latlng[1]}"
+                        android:textColor="@color/basic_black_0.8"
+                        android:lineSpacingExtra="6sp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:ellipsize="end" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/basic_black_0.2" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/area"
+                        android:textColor="@color/basic_black_0.5"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right"
+                        android:includeFontPadding="false"
+                        android:text="@{String.valueOf(country.area)}"
+                        android:textColor="@color/basic_black_0.8"
+                        android:lineSpacingExtra="6sp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:ellipsize="end" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/basic_black_0.2" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/languages"
+                        android:textColor="@color/basic_black_0.5"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right"
+                        android:includeFontPadding="false"
+                        app:languageList="@{country.languages}"
+                        android:textColor="@color/basic_black_0.8"
+                        android:lineSpacingExtra="6sp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:ellipsize="end" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/basic_black_0.2" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>

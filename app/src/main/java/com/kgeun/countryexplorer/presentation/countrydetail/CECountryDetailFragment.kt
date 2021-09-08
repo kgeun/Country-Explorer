@@ -84,7 +84,6 @@ class CECountryDetailFragment : CEBaseFragment() {
     private fun subscribeUi() {
         detailViewModel.countryDetailLivedata?.observe(viewLifecycleOwner) {
             handler.success (it) {
-                Log.i("kglee", "countryviewitem : $it")
                 binding.country = it
             }
         }
@@ -95,12 +94,10 @@ class CECountryDetailFragment : CEBaseFragment() {
         /* Collapsing avatar transparent*/
         when {
             percentOffset > mUpperLimitTransparently -> {
-                //avatarContainerView.alpha = 0.0f
                 binding.bigTitle2.alpha = 0.0F
             }
 
             percentOffset < mUpperLimitTransparently -> {
-                //  avatarContainerView.alpha = 1 - percentOffset
                 binding.bigTitle2.alpha = 1f
             }
         }
@@ -214,8 +211,6 @@ class CECountryDetailFragment : CEBaseFragment() {
                     cashCollapseState = Pair(first, WAIT_FOR_SWITCH)
                 }
             }
-
-
         }
     }
 }

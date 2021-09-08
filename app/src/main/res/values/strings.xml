@@ -23,4 +23,8 @@
     <string name="region">Region</string>
     <string name="subregion">Subregion</string>
     <string name="population">Popluation</string>
+    <string name="native_name">Native Name</string>
+    <string name="latlng">Lat, Lng</string>
+    <string name="area">Area</string>
+    <string name="languages">Languages</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.common.reflect.Reflection.getPackageName
 import com.kgeun.countryexplorer.R
+import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 
 
@@ -29,6 +30,25 @@ object CEViewBinding {
     @JvmStatic
     @BindingAdapter("languageList")
     fun setLanguageList(view: TextView, list: List<CECountryListViewItem.CELanguageViewItem>?) {
+        if (list == null) {
+            return
+        }
+
+        var text = ""
+
+        list.forEachIndexed { index, it ->
+            text += it.name
+            if (index < list.size - 1) {
+                text += "\n"
+            }
+        }
+        text.trim()
+        view.text = text
+    }
+
+    @JvmStatic
+    @BindingAdapter("languageList")
+    fun setLanguageList2(view: TextView, list: List<CECountryViewItem.CELanguageItem>?) {
         if (list == null) {
             return
         }
