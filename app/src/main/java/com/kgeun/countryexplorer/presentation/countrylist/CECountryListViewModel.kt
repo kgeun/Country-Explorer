@@ -109,8 +109,12 @@ class CECountryListViewModel @Inject constructor(
             withContext(Dispatchers.Default) {
                 if (countriesList.value == null || countriesList.value!!.isEmpty()) {
                     try {
+                        val list = CEService.fetchCountriesList()
+                        if (list.isNotEmpty()) {
+                            networkLiveData.postValue(NetworkState.Loaded)
+                        }
                         mainDao.insertCountries(
-                            CEService.fetchCountriesList().map(::transformResponseToEntity)
+                            list.map(::transformResponseToEntity)
                         )
                     } catch (e: Exception) {
                         networkLiveData.postValue(NetworkState.Error(e))

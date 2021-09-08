@@ -1,6 +1,7 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,6 @@ class CECountryListFragment : CEBaseFragment() {
 
     @Inject
     lateinit var mainDao: CEMainDao
-
-    var isRefreshing = false
 
     var callback = { item: CEContinentViewItem ->
         countryListViewModel.continentLiveData.postValue(
@@ -57,7 +56,6 @@ class CECountryListFragment : CEBaseFragment() {
     private fun bindUi() {
         binding.viewModel = countryListViewModel
         binding.communicationFailLayout.retryButton.setOnClickListener {
-            isRefreshing = true
             countryListViewModel.refreshCountryData()
         }
     }
@@ -76,13 +74,6 @@ class CECountryListFragment : CEBaseFragment() {
 
         observe(countryListViewModel.continentLiveData) {
             if (it != null) {
-                if (isRefreshing) {
-                    isRefreshing = false
-                    binding.loadingIndicator.stop()
-                    binding.countryList.visibility = View.VISIBLE
-                    binding.communicationFailLayout.root.visibility = View.GONE
-                    countryListViewModel.networkLiveData.postValue(NetworkState.Loaded)
-                }
                 if (binding.continentAdapter == null) {
                     binding.continentAdapter =
                         CEContinentAdapter(binding.root as ViewGroup, it, callback)
@@ -94,20 +85,24 @@ class CECountryListFragment : CEBaseFragment() {
 
         observe(countryListViewModel.networkLiveData) {
             binding.loadingIndicator.apply {
-                if (it is NetworkState.Loading) {
-                    start()
-                } else if (it is NetworkState.Error) {
-                    stop()
-                    binding.countryList.visibility = View.GONE
-                    binding.communicationFailLayout.root.visibility = View.VISIBLE
-                    CEUtils.errorHandler(
-                        requireContext(),
-                        it.throwable ?: Throwable(getString(R.string.unknown_error_message))
-                    )
-                } else {
-                    stop()
-                    binding.countryList.visibility = View.VISIBLE
-                    binding.communicationFailLayout.root.visibility = View.GONE
+                when (it) {
+                    is NetworkState.Loading -> {
+                        start()
+                    }
+                    is NetworkState.Error -> {
+                        stop()
+                        binding.countryList.visibility = View.GONE
+                        binding.communicationFailLayout.root.visibility = View.VISIBLE
+                        CEUtils.errorHandler(
+                            requireContext(),
+                            it.throwable ?: Throwable(getString(R.string.unknown_error_message))
+                        )
+                    }
+                    else -> {
+                        stop()
+                        binding.communicationFailLayout.root.visibility = View.GONE
+                        binding.countryList.visibility = View.VISIBLE
+                    }
                 }
             }
         }
