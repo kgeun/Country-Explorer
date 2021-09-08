@@ -55,6 +55,11 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 - Application of Coroutine Flow to asynchronous communication
 - By connecting a network handler to Glide, the list is seen even in network disconnection situations
 - Applying Persistance to country detailed information so that it can be seen even when communication is cut off
+- Think more about code refactoring. There is a lot of room for cleaner code.
+- I skipped the Firebase user event due to lack of time, but it would have been better if I did.
+- Think about the efficient structure of how to configure MediatorLivedata for more filtering conditions
+- I thought I had the best design in a short time, but I need to think more about whether there is a better way
+- It must have been a good experience to apply jetpack compose.
 - (being written)
 
 
