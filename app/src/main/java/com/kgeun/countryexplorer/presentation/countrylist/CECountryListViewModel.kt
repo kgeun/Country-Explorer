@@ -1,9 +1,11 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.kgeun.countryexplorer.CEApplication
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.constants.CEConstants
+import com.kgeun.countryexplorer.extension.callbacks
 import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 import com.kgeun.countryexplorer.model.entity.CELanguageEntity
 import com.kgeun.countryexplorer.model.response.CECountryListResponse
@@ -25,9 +27,9 @@ class CECountryListViewModel @Inject constructor(
 ) : ViewModel() {
 
     val countriesList = mainDao.getCountriesList()
-    var searchKeywordLiveData = MutableLiveData<String>()
-    var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>()
-    var searchKeyword = ""
+    var searchKeywordLiveData = MutableLiveData<String>().apply { postValue("")}
+    var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>().apply { postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>) }
+    var networkLiveData = MutableLiveData<Pair<Int, String>>().apply { postValue( CEConstants.STATE_LOADING to "Loading" ) }
 
     var countriesLiveData = MediatorLiveData<List<CECountryListViewItem>?>().apply {
         addSource(countriesList) { value -> setValue(value!!.map(::transformEntityToViewItem)) }
@@ -35,8 +37,6 @@ class CECountryListViewModel @Inject constructor(
         addSource(searchKeywordLiveData) { value ->
             viewModelScope.launch {
                 withContext(Dispatchers.Default) {
-                    searchKeyword = value
-
                     val continentList = continentLiveData.value?.let {
                         continentLiveData.value!!.filter { it.selected }.map { it.region }.toList()
                     } ?: listOf()
@@ -46,7 +46,7 @@ class CECountryListViewModel @Inject constructor(
                     } else if (value == "" && numberOfSelectedButtons(continentLiveData.value) > 0) {
                         mainDao.findCountryByContinentListSync(continentList)
                     } else if (value != "" && numberOfSelectedButtons(continentLiveData.value) == 0) {
-                        mainDao.findCountryByKeywordSync(searchKeyword)
+                        mainDao.findCountryByKeywordSync(value)
                     } else {
                         mainDao.findCountryByKeywordAndSeasonListSync(value, continentList)
                     }
@@ -63,15 +63,16 @@ class CECountryListViewModel @Inject constructor(
             viewModelScope.launch {
                 withContext(Dispatchers.Default) {
                     val continentList = value.filter { it.selected }.map { it.region }.toList()
+                    val keyword = searchKeywordLiveData.value!!
 
-                    val list = if (numberOfSelectedButtons(value) == 0 && searchKeyword == "") {
+                    val list = if (numberOfSelectedButtons(value) == 0 && keyword == "") {
                         mainDao.getCountryListSync()
-                    } else if (numberOfSelectedButtons(value) == 0 && searchKeyword != "") {
-                        mainDao.findCountryByKeywordSync(searchKeyword)
-                    } else if (numberOfSelectedButtons(value) > 0 && searchKeyword == "") {
+                    } else if (numberOfSelectedButtons(value) == 0 && keyword != "") {
+                        mainDao.findCountryByKeywordSync(keyword)
+                    } else if (numberOfSelectedButtons(value) > 0 && keyword == "") {
                         mainDao.findCountryByContinentListSync(continentList)
                     } else {
-                        mainDao.findCountryByKeywordAndSeasonListSync(searchKeyword, continentList)
+                        mainDao.findCountryByKeywordAndSeasonListSync(keyword, continentList)
                     }
 
                     postValue(list!!.map(::transformEntityToViewItem))
@@ -81,8 +82,7 @@ class CECountryListViewModel @Inject constructor(
     }
 
     init {
-        val countriesListValue = countriesList.value
-        if (countriesListValue == null || countriesListValue.isEmpty() ) {
+        if (countriesList.value == null || countriesList.value!!.isEmpty() ) {
             try {
                 viewModelScope.launch {
                     withContext(Dispatchers.Default) {
@@ -91,15 +91,10 @@ class CECountryListViewModel @Inject constructor(
                         )
                     }
                 }
-            } catch (e: retrofit2.HttpException) {
-                error(CEApplication.instance.applicationContext.getString(R.string.communication_error))
             } catch (e: Exception) {
-                error(CEApplication.instance.applicationContext.getString(R.string.unknown_error))
+                networkLiveData.postValue( CEConstants.STATE_LOADED to "Loaded" )
             }
         }
-
-        searchKeywordLiveData.postValue("")
-        continentLiveData.postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>)
     }
 
     fun getCountryByCode(code: String): LiveData<CECountryListEntity?> {

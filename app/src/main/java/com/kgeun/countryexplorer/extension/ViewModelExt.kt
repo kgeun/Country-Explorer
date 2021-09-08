@@ -1,5 +1,6 @@
 package com.kgeun.countryexplorer.extension
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -25,22 +26,19 @@ inline fun <T, V> ViewModel.liveDataScope(
     }
 }
 
-inline fun <T, V> ViewModel.callbacks(
+inline fun <T> ViewModel.callbacks(
     crossinline networkCall: suspend () -> T,
-    crossinline state: (state: Int) -> Unit,
     crossinline onSuccess: (type: T) -> Unit,
     crossinline onFail: (type: Throwable) -> Unit,
-): LiveData<NetworkState<V>> {
+): LiveData<Pair<Int, String>> {
     return liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-        state(CEConstants.STATE_LOADING)
+        Log.i("kglee", "loading 1")
+        emit(CEConstants.STATE_LOADING to "Loading")
         runCatching {
             networkCall.invoke()
-        }
-        .onSuccess {
-            state(CEConstants.STATE_SUCCESS)
+        }.onSuccess {
             onSuccess(it)
         }.onFailure {
-            state(CEConstants.STATE_ERROR)
             onFail(it)
         }
     }

@@ -7,6 +7,7 @@ object CEConstants {
     val STATE_LOADING = 0
     val STATE_SUCCESS = 1
     val STATE_ERROR = -1
+    val STATE_LOADED = 2
 
     val continentItems = arrayListOf(
         CEContinentViewItem(
