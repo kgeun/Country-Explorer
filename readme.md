@@ -51,8 +51,10 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 
 ## Points for improvement
 
-- More thorough separation of layers
-- Application of Kotlin Flow to asynchronous communication
+- More thorough separation of layers with active using of Hilt, or DI library
+- Application of Coroutine Flow to asynchronous communication
+- By connecting a network handler to Glide, the list is seen even in network disconnection situations
+- Applying Persistance to country detailed information so that it can be seen even when communication is cut off
 - (being written)
 
 
