@@ -1,11 +1,11 @@
-package com.kgeun.bbcharacterexplorer
+package com.kgeun.countryexplorer
 
 import androidx.lifecycle.viewModelScope
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kgeun.bbcharacterexplorer.data.model.network.BBCharacter
-import com.kgeun.bbcharacterexplorer.data.persistance.BBMainDao
-import com.kgeun.bbcharacterexplorer.network.BBService
+import com.kgeun.countryexplorer.model.response.CECountryListResponse
+import com.kgeun.countryexplorer.network.CEService
+import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -27,11 +27,10 @@ import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
 @Singleton
 class AnalyticsAdapter @Inject constructor(
-    val mainDao: BBMainDao,
-    val bbService: BBService,
+    val mainDao: CEMainDao,
+    val ceService: CEService,
     val moshi: Moshi
 )
 
@@ -47,40 +46,41 @@ class CEServiceTest {
     @Inject
     lateinit var analyticsAdapter: AnalyticsAdapter
 
-    var charactersList: List<BBCharacter>? = null
+    var countryResponseList: List<CECountryListResponse>? = null
 
     @Before
     fun init() {
         hiltRule.inject()
 
         countryListViewModel =
-            CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
+            CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.ceService)
         countryListViewModel.viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                analyticsAdapter.mainDao.truncateCharacters()
+                analyticsAdapter.mainDao.truncateCountries()
             }
         }
 
-        val charactersInputStream: InputStream = context.assets.open("character_result.json")
-        val charactersRawString =
-            BufferedReader(InputStreamReader(charactersInputStream)).use { it.readText() }
+        val countriesInputStream: InputStream = context.assets.open("country_list_result.json")
+        val countriesRawString =
+            BufferedReader(InputStreamReader(countriesInputStream)).use { it.readText() }
 
         val listMyData: Type = Types.newParameterizedType(
             List::class.java,
-            BBCharacter::class.java
+            CECountryListResponse::class.java
         )
-        val adapter: JsonAdapter<List<BBCharacter>> =
-            analyticsAdapter.moshi.adapter<List<BBCharacter>>(listMyData)
-        charactersList = adapter.fromJson(charactersRawString)
+
+        val adapter: JsonAdapter<List<CECountryListResponse>> =
+            analyticsAdapter.moshi.adapter<List<CECountryListResponse>>(listMyData)
+        countryResponseList = adapter.fromJson(countriesRawString)
 
     }
 
     @Test
-    fun testCharacterFetch() {
+    fun testCountriesFetch() {
         countryListViewModel.viewModelScope.launch {
             try {
-                val result = analyticsAdapter.bbService.fetchCharacters()
-                assertEquals(result[0], charactersList?.get(0))
+                val result = analyticsAdapter.ceService.fetchCountriesList()
+                assertEquals(result[0], countryResponseList?.get(0))
 
             } catch (e: Exception) {
                 throw e

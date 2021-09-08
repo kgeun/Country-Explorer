@@ -1,9 +1,11 @@
-package com.kgeun.bbcharacterexplorer
+package com.kgeun.countryexplorer
 
 import androidx.lifecycle.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kgeun.bbcharacterexplorer.data.model.network.BBCharacter
+import com.kgeun.countryexplorer.model.entity.CECountryListEntity
+import com.kgeun.countryexplorer.model.entity.CEEntityUtil
+import com.kgeun.countryexplorer.model.entity.CELanguageEntity
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListViewModel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Types
@@ -36,53 +38,49 @@ class DatabaseAndViewModelTest {
     @Inject
     lateinit var analyticsAdapter: AnalyticsAdapter
 
-    var charactersList: List<BBCharacter>? = null
+    var countryEntityList: List<CECountryListEntity>? = null
 
     @Before
     fun init() {
         hiltRule.inject()
 
         countryListViewModel =
-            CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
+            CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.ceService)
 
 
-        val charactersInputStream: InputStream = context.assets.open("character_result.json")
+        val charactersInputStream: InputStream = context.assets.open("country_list_result.json")
         val charactersRawString =
             BufferedReader(InputStreamReader(charactersInputStream)).use { it.readText() }
 
         val listMyData: Type = Types.newParameterizedType(
             List::class.java,
-            BBCharacter::class.java
+            CECountryListEntity::class.java
         )
-        val adapter: JsonAdapter<List<BBCharacter>> =
-            analyticsAdapter.moshi.adapter<List<BBCharacter>>(listMyData)
-        charactersList = adapter.fromJson(charactersRawString)
+        val adapter: JsonAdapter<List<CECountryListEntity>> =
+            analyticsAdapter.moshi.adapter<List<CECountryListEntity>>(listMyData)
+        countryEntityList = adapter.fromJson(charactersRawString)
     }
 
     @Test
     fun databaseTest() {
 
         countryListViewModel.viewModelScope.launch {
-            val data = BBCharacter(
-                0,
-                "TEST",
-                "test",
-                listOf("1"),
+            val data = CECountryListEntity(
+                "A",
+                "B",
+                "ABC",
                 "A",
                 "B",
                 "C",
-                listOf(1, 2, 3),
-                "1",
-                "2",
-                listOf()
+                listOf(CELanguageEntity(name = "A"), CELanguageEntity(name = "B"))
             )
             withContext(Dispatchers.IO) {
-                analyticsAdapter.mainDao.truncateCharacters()
-                analyticsAdapter.mainDao.insertCharacter(listOf(data))
+                analyticsAdapter.mainDao.truncateCountries()
+                analyticsAdapter.mainDao.insertCountries(listOf(data))
             }
 
             // DB, ViewModel Test (livedata)
-            analyticsAdapter.mainDao.getCharactersList().observeOnce {
+            analyticsAdapter.mainDao.getCountriesList().observeOnce {
                 if (it != null) {
                     assertEquals(data, it[0])
                 }
@@ -90,12 +88,17 @@ class DatabaseAndViewModelTest {
         }
     }
 
+
     @Test
-    fun testGetCharacterByCharId() {
+    fun testGetCountryByCode() {
         countryListViewModel.viewModelScope.launch {
-            countryListViewModel.getCountryByCode(1).observeOnce {
+            countryListViewModel.getCountryByCode("KOR").observeOnce {
                 if (it != null) {
-                    assertEquals(charactersList?.get(1)!!, it)
+                    assertEquals(
+                        countryEntityList?.filter { it.alpha3Code == "KOR" }!!
+                            .map(CEEntityUtil::transformEntityToResponse)[0],
+                        CEEntityUtil.transformEntityToResponse(it)
+                    )
                 }
             }
         }

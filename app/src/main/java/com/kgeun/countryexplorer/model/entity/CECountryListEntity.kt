@@ -12,5 +12,5 @@ data class CECountryListEntity(
     val capital: String = "",
     val region: String = "",
     val subregion: String = "",
-    val languages: ArrayList<CELanguageEntity> = arrayListOf()
+    val languages: List<CELanguageEntity> = listOf()
 )

@@ -21,7 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
         testApplicationId "com.kgeun.countryexplorer.test"
-        testInstrumentationRunner "com.kgeun.countryexplorer.BBTestRunner"
+        testInstrumentationRunner "com.kgeun.countryexplorer.CETestRunner"
     }
 
     signingConfigs {
@@ -92,7 +92,7 @@ def appendVersionName(variant, defaultConfig) {
         def buildType = variant.buildType.name
         def flavor = variant.productFlavors[0].name
 
-        outputFileName = "BBCE_" + flavor + "_" + buildType + "_" + defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + buildDate + ".apk"
+        outputFileName = "CountryExplorer_" + flavor + "_" + buildType + "_" + defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + buildDate + ".apk"
     }
 }
 
