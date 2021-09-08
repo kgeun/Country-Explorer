@@ -23,25 +23,35 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 ## Tech stacks
 
 - Language : **Kotlin**
-- **MVVM Architecture, LiveData, DataBinding** : The architecture is used for clean code and instant view updates.
-- **Room** : Used for data persistnce.
-- **Hilt** : For clean architecture application, used Hilt, which is Google's official library and much simpler to use than Dagger.
+- **MVVM Architecture, LiveData, DataBinding** : The architecture is used for clean code and instant view updates with async way.
+- **Room** : Used for data persistnce with Livedata
+- **Hilt** : Used to adhere to clean architecture and object-oriented SOLID principles.
 - **Navigation Architecture Component** : Chosen to quickly construct multi-step screens.
-- **Glide** : Used for caching images and loading external images, optimal image processing and scalability.
-- **Retrofit** : It was judged to be an efficient form of communication library to be applied to reactive programming and used.
+- **Glide** : Used for caching images and loading external images, fast and optimal image processing.
+- **Retrofit** : Widely used library as a network standard in Android, and supports coroutine standards well, so used it without any worries.
 
+## Additional functions other than essential functions
+
+- Filterable by continent and name
+- Applied grid-based 2 colomn dynamic layout
+- Apply various tests
+- Latitude and longitude-based maps can be checked
 
 ## Introduction to the project focus
+
 - Aimed simple MVVM architecture to construct and read fast and easy.
-- Applied dark but elegant design to fit the atmosphere of the subject of the project.
+- Care was taken to separate the UI, model, and network layers.
 - Through Livedata and asyncronous processing, filtering result showed immedialtely without clicking submit button.
 - functions like product flavor seperation, proguard application, sign with key applied to real field are also applied.
+- Almost of abnormal cases such as network delay loading screen, network failure screen, and retry button were handled.
+- The navigation architecture component is applied to experience smooth animations and screen transitions.
 
 
 ## Test Cases and Results (Unit Test through JUnit4)
-1. Testing for API (instrumented test)  
 
-> Test Case : Check for Response of server request  
+1. Testing for API Fetch (instrumented test)  
+
+> Test Case : Check for Response of server request (test one item of response) 
 > Result : **Pass**  
 
 2. Testing for Memory Persistence with Livedata (instrumented test)
@@ -49,23 +59,20 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 > Test Case : Check for equality for data input and output of Room database and Livedata  
 > Result : **Pass**  
 
-3. Testing for Memory Persistence (instrumented test)  
+3. Testing for Memory Persistence, Filtering Logic  (instrumented test)  
 
-> Test Case : Without Liveadata, Check data equality with pure database  
+> Test Case : Check for finding one country by alphabet code  
+> Result : **Pass**  
+
+> Test Case : Check for filterling logic like user input keyword and click buttons  
 > Result : **Pass**  
 
 4. Testing for Business Logic (pure logic test)
 
-> Test Case : Check for number of selected seasons  
+> Test Case : Check for number of selected buttons  
 > Result : **Pass**    
 
-> Test Case : Check for dynamic query for keyword and season appearance search  
-> Result : **Pass**    
-
-> Test Case : Check for dynamic query for season appearance search  
-> Result : **Pass**    
-
-**Total** : 6 cases  
-**Pass**: 6 cases  
+**Total** : 5 cases  
+**Pass**: 5 cases  
 **Fail** : 0 cases  
     
