@@ -5,21 +5,26 @@
     <data>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@color/basic_black_0.8"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_globe" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/rcs_logo_type"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="20dp" />
+
+    </LinearLayout>
 
 </layout>

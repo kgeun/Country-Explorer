@@ -64,7 +64,10 @@ class CECountryDetailFragment : CEBaseFragment() {
 
     private fun bindUi() {
         binding.loadingIndicator.start()
-        binding.backBtn.setOnClickListener {
+        binding.backBtn1.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.backBtn2.setOnClickListener {
             findNavController().popBackStack()
         }
     }
@@ -134,10 +137,14 @@ class CECountryDetailFragment : CEBaseFragment() {
                             binding.flBackground.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent))
                             /**/
                             binding.flagImage.translationX = 0f
-
+                            binding.backBtn1.visibility = View.VISIBLE
+                            binding.backBtn2.visibility = View.GONE
                         }
 
                         TO_COLLAPSED_STATE -> {
+                            binding.backBtn1.visibility = View.GONE
+                            binding.backBtn2.visibility = View.VISIBLE
+
                             binding.flBackground.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.solid_grey_0_5))
                             currentImageSize = COLLAPSE_IMAGE_SIZE.toInt()
                             translationY = binding.appBarLayout.totalScrollRange.toFloat() - (binding.toolbar.height - COLLAPSE_IMAGE_SIZE) / 2
