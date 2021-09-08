@@ -55,8 +55,8 @@ class CECountryListFragment : CEBaseFragment() {
 
     private fun bindUi() {
         binding.viewModel = countryListViewModel
-        binding.retryButton.setOnClickListener {
-            countryListViewModel
+        binding.communicationFailLayout.retryButton.setOnClickListener {
+            countryListViewModel.refreshCountryData()
         }
     }
 
@@ -90,13 +90,13 @@ class CECountryListFragment : CEBaseFragment() {
                     start()
                 } else if (it is NetworkState.Error) {
                     stop()
-//                    binding.communicationFailLayout.visibility = View.VISIBLE
+                    binding.communicationFailLayout.root.visibility = View.VISIBLE
 //                    CEUtils.errorHandler(
 //                        requireContext(),
 //                        it.throwable ?: Throwable(getString(R.string.unknown_error_message))
 //                    )
                 } else {
-//                    binding.communicationFailLayout.visibility = View.INVISIBLE
+                    binding.communicationFailLayout.root.visibility = View.INVISIBLE
                     stop()
                 }
             }

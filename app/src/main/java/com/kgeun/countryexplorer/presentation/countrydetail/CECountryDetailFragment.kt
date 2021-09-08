@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.liveData
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.FragmentDetailBinding
 import com.kgeun.countryexplorer.extension.observe
 import com.kgeun.countryexplorer.network.CENetworkHandler
+import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.presentation.CEBaseFragment
 import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragmentArgs
@@ -56,10 +58,23 @@ class CECountryDetailFragment : CEBaseFragment() {
         handler = CENetworkHandler(requireActivity())
         
         setupCollapsingToolbar()
+        setupHandler()
         bindUi()
         subscribeUi()
 
         return binding.root
+    }
+
+    private fun setupHandler() {
+        handler.loadingCallBack = {
+            binding.contentLoadingIndicator.start()
+        }
+
+        handler.errorCallBack = {
+            binding.loadingIndicator.stop()
+            binding.contentLoadingIndicator.stop()
+            binding.communicationFailLayout.root.visibility = View.VISIBLE
+        }
     }
 
     private fun bindUi() {
@@ -69,6 +84,9 @@ class CECountryDetailFragment : CEBaseFragment() {
         }
         binding.backBtn2.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.communicationFailLayout.retryButton.setOnClickListener {
+            detailViewModel.getCountryDetail(alphaCode)
         }
     }
 
@@ -92,6 +110,9 @@ class CECountryDetailFragment : CEBaseFragment() {
     private fun subscribeUi() {
         observe(detailViewModel.countryDetailLivedata) {
             handler.success (it) {
+                binding.loadingIndicator.stop()
+                binding.contentLoadingIndicator.stop()
+                binding.communicationFailLayout.root.visibility = View.GONE
                 binding.country = it
             }
         }
