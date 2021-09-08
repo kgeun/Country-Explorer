@@ -6,12 +6,11 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class CEApplication : Application() {
     companion object {
-        lateinit var instance: CEApplication
-            private set
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        instance = this@CEApplication
+        @Volatile var instance: CEApplication? = null
+            get() {
+                return field ?: synchronized(this) {
+                    instance ?: CEApplication().also { instance = it }
+                }
+            }
     }
 }
