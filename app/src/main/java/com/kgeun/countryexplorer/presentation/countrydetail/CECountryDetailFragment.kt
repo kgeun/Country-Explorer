@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.FragmentDetailBinding
+import com.kgeun.countryexplorer.extension.observe
 import com.kgeun.countryexplorer.network.CENetworkHandler
 import com.kgeun.countryexplorer.presentation.CEBaseFragment
 import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
@@ -62,6 +64,9 @@ class CECountryDetailFragment : CEBaseFragment() {
 
     private fun bindUi() {
         binding.loadingIndicator.start()
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setupCollapsingToolbar() {
@@ -82,7 +87,7 @@ class CECountryDetailFragment : CEBaseFragment() {
     }
 
     private fun subscribeUi() {
-        detailViewModel.countryDetailLivedata?.observe(viewLifecycleOwner) {
+        observe(detailViewModel.countryDetailLivedata) {
             handler.success (it) {
                 binding.country = it
             }
@@ -91,7 +96,6 @@ class CECountryDetailFragment : CEBaseFragment() {
     }
 
     private fun updateViews(percentOffset: Float) {
-        /* Collapsing avatar transparent*/
         when {
             percentOffset > mUpperLimitTransparently -> {
                 binding.bigTitle2.alpha = 0.0F
@@ -102,7 +106,6 @@ class CECountryDetailFragment : CEBaseFragment() {
             }
         }
 
-        /*Collapsed/expended sizes for views*/
         val result: Pair<Int, Int> = when {
             percentOffset < ABROAD -> {
                 Pair(TO_EXPANDED_STATE, cashCollapseState?.second
@@ -112,6 +115,7 @@ class CECountryDetailFragment : CEBaseFragment() {
                 Pair(TO_COLLAPSED_STATE, cashCollapseState?.second ?: WAIT_FOR_SWITCH)
             }
         }
+
         result.apply {
             var translationY = 0f
             var headContainerHeight = 0f
