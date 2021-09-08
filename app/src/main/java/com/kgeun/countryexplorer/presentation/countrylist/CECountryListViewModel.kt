@@ -6,7 +6,7 @@ import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 import com.kgeun.countryexplorer.model.entity.CEEntityUtil.transformEntityToViewItem
 import com.kgeun.countryexplorer.model.response.CEResponseUtil.transformResponseToEntity
 import com.kgeun.countryexplorer.network.CEService
-import com.kgeun.countryexplorer.network.NetworkState
+import com.kgeun.countryexplorer.network.CENetworkState
 import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
@@ -27,7 +27,7 @@ class CECountryListViewModel @Inject constructor(
     var searchKeywordLiveData = MutableLiveData<String>().apply { postValue("") }
     var continentLiveData =
         MutableLiveData<List<CEContinentViewItem>?>().apply { postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>) }
-    var networkLiveData = MutableLiveData<NetworkState<Nothing>>()
+    var networkLiveData = MutableLiveData<CENetworkState<Nothing>>()
 
     var countriesLiveData = MediatorLiveData<List<CECountryListViewItem>?>().apply {
         addSource(countriesList) { value -> setValue(value!!.map(::transformEntityToViewItem)) }
@@ -102,20 +102,20 @@ class CECountryListViewModel @Inject constructor(
     }
 
     fun refreshCountryData() {
-        networkLiveData.postValue(NetworkState.Loading)
+        networkLiveData.postValue(CENetworkState.Loading)
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 if (countriesList.value == null || countriesList.value!!.isEmpty()) {
                     try {
                         val list = CEService.fetchCountriesList()
                         if (list.isNotEmpty()) {
-                            networkLiveData.postValue(NetworkState.Loaded)
+                            networkLiveData.postValue(CENetworkState.Loaded)
                         }
                         mainDao.insertCountries(
                             list.map(::transformResponseToEntity)
                         )
                     } catch (e: Exception) {
-                        networkLiveData.postValue(NetworkState.Error(e))
+                        networkLiveData.postValue(CENetworkState.Error(e))
                         e.printStackTrace()
                     }
                 }

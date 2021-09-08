@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.FragmentCountryListBinding
 import com.kgeun.countryexplorer.extension.observe
-import com.kgeun.countryexplorer.network.NetworkState
+import com.kgeun.countryexplorer.network.CENetworkState
 import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.presentation.CEBaseFragment
 import com.kgeun.countryexplorer.presentation.countrylist.adapter.CEContinentAdapter
@@ -85,10 +85,10 @@ class CECountryListFragment : CEBaseFragment() {
         observe(countryListViewModel.networkLiveData) {
             binding.loadingIndicator.apply {
                 when (it) {
-                    is NetworkState.Loading -> {
+                    is CENetworkState.Loading -> {
                         start()
                     }
-                    is NetworkState.Error -> {
+                    is CENetworkState.Error -> {
                         stop()
                         binding.countryList.visibility = View.GONE
                         binding.communicationFailLayout.root.visibility = View.VISIBLE

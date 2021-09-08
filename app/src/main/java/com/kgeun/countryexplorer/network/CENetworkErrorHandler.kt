@@ -16,18 +16,18 @@ class CENetworkHandler<T>(val context: Context) {
 
     var loadingCallBack: (() -> Unit)? = null
 
-    fun success(item: NetworkState<T>, callback: (T) -> Unit) {
+    fun success(item: CENetworkState<T>, callback: (T) -> Unit) {
         when (item) {
-            is NetworkState.Success -> {
+            is CENetworkState.Success -> {
                 callback(item.item)
             }
-            is NetworkState.Loading -> {
+            is CENetworkState.Loading -> {
                 loadingCallBack?.let { it() }
             }
-            is NetworkState.Error -> {
+            is CENetworkState.Error -> {
                 errorCallBack?.let { it() }
             }
-            is NetworkState.Empty -> {
+            is CENetworkState.Empty -> {
                 loadingCallBack?.let { it() }
             }
         }

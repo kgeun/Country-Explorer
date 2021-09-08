@@ -5,7 +5,7 @@ import com.kgeun.countryexplorer.utils.CEUtils
 import org.junit.Assert
 import org.junit.Test
 
-class BBLogicTest {
+class CELogicTest {
     @Test
     fun checkNumberOfSelectedButtons() {
         val samples = arrayListOf(
