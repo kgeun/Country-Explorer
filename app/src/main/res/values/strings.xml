@@ -17,4 +17,6 @@
     <string name="status">Status</string>
     <string name="season_appearenace">Season Appearenace</string>
     <string name="unknown_error_message">Unknown Error</string>
+    <string name="communication_fail_message">Communication failed.\nPlease check your internet connection or try again later.</string>
+    <string name="retry">Retry</string>
 </resources>
