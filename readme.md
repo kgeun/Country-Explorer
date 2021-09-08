@@ -49,6 +49,13 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 - The navigation architecture component is applied to experience smooth animations and screen transitions.
 
 
+## Points for improvement
+
+- More thorough separation of layers
+- Application of Kotlin Flow to asynchronous communication
+- (being written)
+
+
 ## Test Cases and Results (Unit Test through JUnit4)
 
 1. Testing for API Fetch (instrumented test)  
