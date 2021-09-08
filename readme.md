@@ -1,15 +1,17 @@
-# Breaking Bad Character Explorer
+# Country Explorer
 
-GAN Home Assignment, Kyung Geun Lee  
-29th Aug ~ 2th Sep 2021  
+Country Explorer, Kyung Geun Lee  
+4th Sep ~ 8th Sep 2021  
 
 ## Introduction
 This is an application that provides informations about characters about Breaking Bad drama.  
 
 ## Screenshots
-![bbce1](https://user-images.githubusercontent.com/7823937/131785335-c5c63577-28e7-4f6f-bf70-e73816d0a8d3.jpeg) 
-![bbce2](https://user-images.githubusercontent.com/7823937/131785341-63f6223b-8b68-41a1-94c6-0222d13fa0c3.jpeg) 
-![bbce3](https://user-images.githubusercontent.com/7823937/131785347-854f6373-6b5a-4a8e-b608-50146bf93470.jpeg) 
+![Screenshot 001](https://user-images.githubusercontent.com/7823937/132509593-bfd790d2-bdb7-427a-8816-136cf8b7e399.jpeg)  
+![Screenshot 002](https://user-images.githubusercontent.com/7823937/132509597-479e3f5a-58ae-4ca7-9065-c1352bcaeff6.jpeg)  
+![Screenshot 003](https://user-images.githubusercontent.com/7823937/132509605-f07323e6-f2a3-42f1-8080-b4300d20a863.jpeg)  
+![Screenshot 004](https://user-images.githubusercontent.com/7823937/132509581-ea6cb7e6-b55f-4c7d-9dc7-21787259d42f.jpeg)  
+![Screenshot 005](https://user-images.githubusercontent.com/7823937/132509569-31afb1e3-bed2-43bb-90d4-39159f68fd82.jpeg)  
 
 ## How to use the app
 You can download app's package file here (https://drive.google.com/drive/folders/1D0nAixvuRdoxCJQmlPAYdJLu4ff9OHPI?usp=sharing).  

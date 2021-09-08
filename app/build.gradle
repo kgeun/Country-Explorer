@@ -170,10 +170,6 @@ dependencies {
     // Loading Image Library
     implementation 'com.victor:lib:1.0.4'
 
-    // Joda time
-    implementation 'joda-time:joda-time:2.10.10'
-    implementation 'com.github.debop:koda-time:1.2.1'
-
     // Test Libraries
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:core:1.3.0'
