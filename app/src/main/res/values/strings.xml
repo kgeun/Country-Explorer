@@ -19,4 +19,8 @@
     <string name="unknown_error_message">Unknown Error</string>
     <string name="communication_fail_message">Communication failed.\nPlease check your internet connection or try again later.</string>
     <string name="retry">Retry</string>
+    <string name="capital">Capital</string>
+    <string name="region">Region</string>
+    <string name="subregion">Subregion</string>
+    <string name="population">Popluation</string>
 </resources>

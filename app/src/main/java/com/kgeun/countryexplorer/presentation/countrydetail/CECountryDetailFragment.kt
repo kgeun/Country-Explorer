@@ -54,9 +54,14 @@ class CECountryDetailFragment : CEBaseFragment() {
         handler = CENetworkHandler(requireActivity())
         
         setupCollapsingToolbar()
+        bindUi()
         subscribeUi()
 
         return binding.root
+    }
+
+    private fun bindUi() {
+        binding.loadingIndicator.start()
     }
 
     private fun setupCollapsingToolbar() {
@@ -91,12 +96,12 @@ class CECountryDetailFragment : CEBaseFragment() {
         when {
             percentOffset > mUpperLimitTransparently -> {
                 //avatarContainerView.alpha = 0.0f
-                binding.titleToolbarText.alpha = 0.0F
+                binding.bigTitle2.alpha = 0.0F
             }
 
             percentOffset < mUpperLimitTransparently -> {
                 //  avatarContainerView.alpha = 1 - percentOffset
-                binding.titleToolbarText.alpha = 1f
+                binding.bigTitle2.alpha = 1f
             }
         }
 
@@ -123,11 +128,11 @@ class CECountryDetailFragment : CEBaseFragment() {
                             headContainerHeight = binding.appBarLayout.totalScrollRange.toFloat()
                             currentImageSize = EXPAND_AVATAR_SIZE.toInt()
                             /**/
-                            binding.titleToolbarText.visibility = View.VISIBLE
-                            binding.titleToolbarTextSingle.visibility = View.INVISIBLE
+                            binding.bigTitle2.visibility = View.VISIBLE
+                            binding.bigTitle1.visibility = View.INVISIBLE
                             binding.flBackground.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent))
                             /**/
-                            binding.imgbAvatarWrap.translationX = 0f
+                            binding.flagImage.translationX = 0f
 
                         }
 
@@ -136,12 +141,12 @@ class CECountryDetailFragment : CEBaseFragment() {
                             currentImageSize = COLLAPSE_IMAGE_SIZE.toInt()
                             translationY = binding.appBarLayout.totalScrollRange.toFloat() - (binding.toolbar.height - COLLAPSE_IMAGE_SIZE) / 2
                             headContainerHeight = binding.toolbar.height.toFloat()
-                            translationX = binding.appBarLayout.width / 2f - COLLAPSE_IMAGE_SIZE / 2 - margin * 2
+                            translationX = binding.appBarLayout.width / 2f - COLLAPSE_IMAGE_SIZE / 2 - margin * 2 - resources.getDimension(R.dimen.global_horizontal_margin)
                             /**/
-                            ValueAnimator.ofFloat(binding.imgbAvatarWrap.translationX, translationX).apply {
+                            ValueAnimator.ofFloat(binding.flagImage.translationX, translationX).apply {
                                 addUpdateListener {
                                     if (cashCollapseState!!.first == TO_COLLAPSED_STATE) {
-                                        binding.imgbAvatarWrap.translationX = it.animatedValue as Float
+                                        binding.flagImage.translationX = it.animatedValue as Float
                                     }
                                 }
                                 interpolator = AnticipateOvershootInterpolator()
@@ -150,8 +155,8 @@ class CECountryDetailFragment : CEBaseFragment() {
                                 start()
                             }
                             /**/
-                            binding.titleToolbarText.visibility = View.INVISIBLE
-                            binding.titleToolbarTextSingle.apply {
+                            binding.bigTitle2.visibility = View.INVISIBLE
+                            binding.bigTitle1.apply {
                                 visibility = View.VISIBLE
                                 alpha = 0.2f
                                 this.translationX = width.toFloat() / 2
@@ -165,7 +170,7 @@ class CECountryDetailFragment : CEBaseFragment() {
                         }
                     }
 
-                    binding.imgbAvatarWrap.apply {
+                    binding.flagImage.apply {
                         layoutParams.height = currentImageSize
                         layoutParams.width = currentImageSize
                     }
@@ -179,7 +184,7 @@ class CECountryDetailFragment : CEBaseFragment() {
                 }
                 else -> {
                     /* Collapse avatar img*/
-                    binding.imgbAvatarWrap.apply {
+                    binding.flagImage.apply {
                         if (percentOffset > startAvatarAnimatePointY) {
 
                             val animateOffset = (percentOffset - startAvatarAnimatePointY) * animateWeigt

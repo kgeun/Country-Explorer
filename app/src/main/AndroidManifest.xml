@@ -25,6 +25,17 @@
         </activity>
         <activity android:name="com.kgeun.countryexplorer.presentation.CEMainActivity"
             android:windowSoftInputMode="stateHidden" />
+
+        <meta-data
+            android:name="googleKey"
+            android:value="AIzaSyCzQIMdy02OkdxEwAT_d-tJ4lsTte5msEo" />
+
+        <meta-data
+            android:name="mapquestKey"
+            android:value="6rqzAe5OnyTMLtfDyMADIzGyrAtdN0JE" />
+
+
+
     </application>
 
 </manifest>

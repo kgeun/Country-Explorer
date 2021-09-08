@@ -1,9 +1,14 @@
 package com.kgeun.countryexplorer.extension
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.common.reflect.Reflection.getPackageName
+import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 
 
@@ -38,6 +43,28 @@ object CEViewBinding {
         }
         text.trim()
         view.text = text
+    }
+
+    @JvmStatic
+    @BindingAdapter("mapthumbnail")
+    fun setMapThumbnail(view: ImageView, latlng: List<Float>?) {
+        if (latlng == null) {
+            return
+        }
+
+        view.context.apply {
+            val applicationInfo: ApplicationInfo =
+                this.packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+
+            val key = applicationInfo.metaData.getString("mapquestKey")
+            val mapUrl =
+                "https://www.mapquestapi.com/staticmap/v5/map?key=${key}&center=${latlng[0]},${latlng[1]}" +
+                        "&size=800,400&format=jpg70&zoom=4"
+
+            Glide.with(this)
+                .load(mapUrl)
+                .into(view)
+        }
     }
 
 }
