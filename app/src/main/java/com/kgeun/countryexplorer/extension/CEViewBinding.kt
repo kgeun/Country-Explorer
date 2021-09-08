@@ -2,13 +2,10 @@ package com.kgeun.countryexplorer.extension
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.google.common.reflect.Reflection.getPackageName
-import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 

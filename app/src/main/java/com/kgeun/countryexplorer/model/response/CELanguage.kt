@@ -12,4 +12,4 @@ data class CELanguage(
     val iso639_2: String = "",
     val name: String = "",
     val nativeName: String = ""
-): Serializable, Parcelable
+) : Serializable, Parcelable

@@ -2,7 +2,10 @@ package com.kgeun.countryexplorer.extension
 
 import androidx.lifecycle.*
 
-fun <T> MediatorLiveData<T>.addSourceList(vararg liveDataArgument: MutableLiveData<*>, onChanged: () -> T) {
+fun <T> MediatorLiveData<T>.addSourceList(
+    vararg liveDataArgument: MutableLiveData<*>,
+    onChanged: () -> T
+) {
     liveDataArgument.forEach {
         this.addSource(it) { value = onChanged() }
     }

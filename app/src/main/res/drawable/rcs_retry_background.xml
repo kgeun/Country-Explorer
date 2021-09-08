@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <ripple android:color="@color/solid_grey_0.5">
             <item>
-                <shape
-                    android:shape="rectangle">
-                    <solid
-                        android:color="@color/primary_skyblue_1_0.5"/>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary_skyblue_1_0.5" />
                     <corners android:radius="14dp" />
                 </shape>
             </item>

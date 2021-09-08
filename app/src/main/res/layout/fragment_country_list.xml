@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="continentAdapter"
             type="com.kgeun.countryexplorer.presentation.countrylist.adapter.CEContinentAdapter" />
@@ -27,34 +28,34 @@
             android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/basic_black"
+            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
             android:layout_marginTop="20dp"
             android:text="@string/title"
+            android:textColor="@color/basic_black"
             android:textSize="21sp"
             android:textStyle="bold"
-            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/searchName"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@drawable/rcs_search_background_1"
+            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
             android:layout_marginTop="20dp"
-            android:textColor="@color/basic_black_0.8"
-            android:textColorHint="@color/basic_black_0.5"
-            android:textSize="16sp"
+            android:background="@drawable/rcs_search_background_1"
             android:gravity="center"
+            android:hint="@string/search"
+            android:imeOptions="actionDone"
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
             android:text="@={viewModel.searchKeywordLiveData}"
-            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
-            android:hint="@string/search"
-            android:imeOptions="actionDone"
-            app:layout_constraintTop_toBottomOf="@id/appTitle"/>
+            android:textColor="@color/basic_black_0.8"
+            android:textColorHint="@color/basic_black_0.5"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/appTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/continentalList"
@@ -77,41 +78,41 @@
             android:id="@+id/countryList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
             android:layout_marginTop="20dp"
             android:clipToPadding="false"
-            android:layout_marginHorizontal="@dimen/global_horizontal_margin"
-            app:spanCount="2"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/continentalList"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/continentalList"
             app:rvAdapter="@{countryAdapter}"
-            tools:listitem="@layout/listitem_country"
-            tools:itemCount="5" />
+            app:spanCount="2"
+            tools:itemCount="5"
+            tools:listitem="@layout/listitem_country" />
 
         <include
             android:id="@+id/communicationFailLayout"
+            layout="@layout/layout_communication_fail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            layout="@layout/layout_communication_fail"
-            app:layout_constraintTop_toBottomOf="@id/appTitle"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/appTitle" />
 
         <com.victor.loading.rotate.RotateLoading
             android:id="@+id/loadingIndicator"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:loading_width="5dp"
-            app:loading_color="@color/primary_teal_1_0.3"
             android:layout_centerInParent="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loading_color="@color/primary_teal_1_0.3"
+            app:loading_width="5dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

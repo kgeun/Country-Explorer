@@ -17,4 +17,4 @@ data class CECountryListResponse(
     val region: String = "",
     val subregion: String = "",
     val languages: List<CELanguage> = listOf()
-): Serializable, Parcelable
+) : Serializable, Parcelable

@@ -2,21 +2,18 @@ package com.kgeun.countryexplorer.presentation.countrydetail
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.liveData
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.FragmentDetailBinding
 import com.kgeun.countryexplorer.extension.observe
 import com.kgeun.countryexplorer.network.CENetworkHandler
-import com.kgeun.countryexplorer.network.NetworkState
 import com.kgeun.countryexplorer.presentation.CEBaseFragment
 import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragmentArgs
@@ -56,7 +53,7 @@ class CECountryDetailFragment : CEBaseFragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         alphaCode = CECountryListFragmentArgs.fromBundle(requireArguments()).alphaCode
         handler = CENetworkHandler(requireActivity())
-        
+
         setupCollapsingToolbar()
         setupHandler()
         bindUi()
@@ -97,7 +94,8 @@ class CECountryDetailFragment : CEBaseFragment() {
         binding.appBarLayout.addOnOffsetChangedListener(
             AppBarLayout.OnOffsetChangedListener { appBarLayout, i ->
                 if (isCalculated.not()) {
-                    startAvatarAnimatePointY = Math.abs((appBarLayout.height - EXPAND_AVATAR_SIZE - binding.toolbar.height / 2) / appBarLayout.totalScrollRange)
+                    startAvatarAnimatePointY =
+                        Math.abs((appBarLayout.height - EXPAND_AVATAR_SIZE - binding.toolbar.height / 2) / appBarLayout.totalScrollRange)
                     animateWeigt = 1 / (1 - startAvatarAnimatePointY)
                     isCalculated = true
                 }
@@ -109,7 +107,7 @@ class CECountryDetailFragment : CEBaseFragment() {
 
     private fun subscribeUi() {
         observe(detailViewModel.countryDetailLivedata) {
-            handler.success (it) {
+            handler.success(it) {
                 binding.loadingIndicator.stop()
                 binding.contentLoadingIndicator.stop()
                 binding.communicationFailLayout.root.visibility = View.GONE
@@ -132,8 +130,10 @@ class CECountryDetailFragment : CEBaseFragment() {
 
         val result: Pair<Int, Int> = when {
             percentOffset < ABROAD -> {
-                Pair(TO_EXPANDED_STATE, cashCollapseState?.second
-                    ?: WAIT_FOR_SWITCH)
+                Pair(
+                    TO_EXPANDED_STATE, cashCollapseState?.second
+                        ?: WAIT_FOR_SWITCH
+                )
             }
             else -> {
                 Pair(TO_COLLAPSED_STATE, cashCollapseState?.second ?: WAIT_FOR_SWITCH)
@@ -155,7 +155,12 @@ class CECountryDetailFragment : CEBaseFragment() {
                             /**/
                             binding.bigTitle2.visibility = View.VISIBLE
                             binding.bigTitle1.visibility = View.INVISIBLE
-                            binding.flBackground.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent))
+                            binding.flBackground.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.transparent
+                                )
+                            )
                             /**/
                             binding.flagImage.translationX = 0f
                             binding.backBtn1.visibility = View.VISIBLE
@@ -166,23 +171,34 @@ class CECountryDetailFragment : CEBaseFragment() {
                             binding.backBtn1.visibility = View.GONE
                             binding.backBtn2.visibility = View.VISIBLE
 
-                            binding.flBackground.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.solid_grey_0_5))
+                            binding.flBackground.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.solid_grey_0_5
+                                )
+                            )
                             currentImageSize = COLLAPSE_IMAGE_SIZE.toInt()
-                            translationY = binding.appBarLayout.totalScrollRange.toFloat() - (binding.toolbar.height - COLLAPSE_IMAGE_SIZE) / 2
+                            translationY =
+                                binding.appBarLayout.totalScrollRange.toFloat() - (binding.toolbar.height - COLLAPSE_IMAGE_SIZE) / 2
                             headContainerHeight = binding.toolbar.height.toFloat()
-                            translationX = binding.appBarLayout.width / 2f - COLLAPSE_IMAGE_SIZE / 2 - margin * 2 - resources.getDimension(R.dimen.global_horizontal_margin)
+                            translationX =
+                                binding.appBarLayout.width / 2f - COLLAPSE_IMAGE_SIZE / 2 - margin * 2 - resources.getDimension(
+                                    R.dimen.global_horizontal_margin
+                                )
                             /**/
-                            ValueAnimator.ofFloat(binding.flagImage.translationX, translationX).apply {
-                                addUpdateListener {
-                                    if (cashCollapseState!!.first == TO_COLLAPSED_STATE) {
-                                        binding.flagImage.translationX = it.animatedValue as Float
+                            ValueAnimator.ofFloat(binding.flagImage.translationX, translationX)
+                                .apply {
+                                    addUpdateListener {
+                                        if (cashCollapseState!!.first == TO_COLLAPSED_STATE) {
+                                            binding.flagImage.translationX =
+                                                it.animatedValue as Float
+                                        }
                                     }
+                                    interpolator = AnticipateOvershootInterpolator()
+                                    startDelay = 69
+                                    duration = 350
+                                    start()
                                 }
-                                interpolator = AnticipateOvershootInterpolator()
-                                startDelay = 69
-                                duration = 350
-                                start()
-                            }
                             /**/
                             binding.bigTitle2.visibility = View.INVISIBLE
                             binding.bigTitle1.apply {
@@ -216,9 +232,10 @@ class CECountryDetailFragment : CEBaseFragment() {
                     binding.flagImage.apply {
                         if (percentOffset > startAvatarAnimatePointY) {
 
-                            val animateOffset = (percentOffset - startAvatarAnimatePointY) * animateWeigt
-//                            Timber.d("offset for anim $animateOffset")
-                            val avatarSize = EXPAND_AVATAR_SIZE - (EXPAND_AVATAR_SIZE - COLLAPSE_IMAGE_SIZE) * animateOffset
+                            val animateOffset =
+                                (percentOffset - startAvatarAnimatePointY) * animateWeigt
+                            val avatarSize =
+                                EXPAND_AVATAR_SIZE - (EXPAND_AVATAR_SIZE - COLLAPSE_IMAGE_SIZE) * animateOffset
 
                             this.layoutParams.also {
                                 if (it.height != Math.round(avatarSize)) {

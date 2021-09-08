@@ -13,23 +13,22 @@
             android:id="@+id/list_to_detail"
             app:destination="@id/detailFragment"
             app:enterAnim="@null"
-            app:popEnterAnim="@null"
             app:exitAnim="@null"
+            app:popEnterAnim="@null"
             app:popExitAnim="@null">
             <argument
                 android:name="alphaCode"
-                app:argType="string"
-                android:defaultValue="GBR"/>
+                android:defaultValue="GBR"
+                app:argType="string" />
         </action>
         <argument
             android:name="alphaCode"
-            app:argType="string"
-            android:defaultValue="GBR"/>
+            android:defaultValue="GBR"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.kgeun.countryexplorer.presentation.countrydetail.CECountryDetailFragment"
-        tools:layout="@layout/fragment_detail">
-    </fragment>
+        tools:layout="@layout/fragment_detail"></fragment>
 </navigation>

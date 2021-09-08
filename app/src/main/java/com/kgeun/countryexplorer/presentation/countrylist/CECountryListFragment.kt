@@ -1,6 +1,5 @@
 package com.kgeun.countryexplorer.presentation.countrylist
 
-import android.net.Network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +22,9 @@ import javax.inject.Inject
 class CECountryListFragment : CEBaseFragment() {
     private lateinit var binding: FragmentCountryListBinding
     val countryListViewModel: CECountryListViewModel by viewModels()
+
     @Inject
     lateinit var mainDao: CEMainDao
-    var countryAdapter: CECountryAdapter? = null
 
     var callback = { item: CEContinentViewItem ->
         countryListViewModel.continentLiveData.postValue(
@@ -64,7 +63,8 @@ class CECountryListFragment : CEBaseFragment() {
         observe(countryListViewModel.countriesLiveData) {
             if (it != null) {
                 if (binding.countryAdapter == null) {
-                    binding.countryAdapter = CECountryAdapter(binding.root as ViewGroup, ArrayList(it))
+                    binding.countryAdapter =
+                        CECountryAdapter(binding.root as ViewGroup, ArrayList(it))
                 } else {
                     (binding.countryAdapter as CECountryAdapter).setList(it)
                 }
@@ -77,7 +77,8 @@ class CECountryListFragment : CEBaseFragment() {
                     countryListViewModel.networkLiveData.postValue(NetworkState.Loaded)
                 }
                 if (binding.continentAdapter == null) {
-                    binding.continentAdapter = CEContinentAdapter(binding.root as ViewGroup, it, callback)
+                    binding.continentAdapter =
+                        CEContinentAdapter(binding.root as ViewGroup, it, callback)
                 } else {
                     binding.continentAdapter!!.notifyDataSetChanged()
                 }
@@ -91,13 +92,13 @@ class CECountryListFragment : CEBaseFragment() {
                 } else if (it is NetworkState.Error) {
                     stop()
                     binding.communicationFailLayout.root.visibility = View.VISIBLE
-//                    CEUtils.errorHandler(
-//                        requireContext(),
-//                        it.throwable ?: Throwable(getString(R.string.unknown_error_message))
-//                    )
+                    CEUtils.errorHandler(
+                        requireContext(),
+                        it.throwable ?: Throwable(getString(R.string.unknown_error_message))
+                    )
                 } else {
-                    binding.communicationFailLayout.root.visibility = View.INVISIBLE
                     stop()
+                    binding.communicationFailLayout.root.visibility = View.INVISIBLE
                 }
             }
         }

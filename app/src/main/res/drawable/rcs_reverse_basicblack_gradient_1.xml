@@ -3,49 +3,45 @@
     <item>
         <shape>
             <gradient
-                android:type="linear"
                 android:angle="270"
-                android:startColor="@color/basic_black_0.4"
                 android:centerColor="#33292929"
-                android:endColor="@color/transparent"
                 android:centerY="10%"
-                />
+                android:endColor="@color/transparent"
+                android:startColor="@color/basic_black_0.4"
+                android:type="linear" />
         </shape>
     </item>
     <item>
         <shape>
             <gradient
-                android:type="linear"
                 android:angle="270"
-                android:startColor="@color/basic_black_0.4"
                 android:centerColor="#33292929"
-                android:endColor="@color/transparent"
                 android:centerY="20%"
-                />
+                android:endColor="@color/transparent"
+                android:startColor="@color/basic_black_0.4"
+                android:type="linear" />
         </shape>
     </item>
     <item>
         <shape>
             <gradient
-                android:type="linear"
                 android:angle="270"
-                android:startColor="@color/basic_black_0.4"
                 android:centerColor="#33292929"
-                android:endColor="@color/transparent"
                 android:centerY="30%"
-                />
+                android:endColor="@color/transparent"
+                android:startColor="@color/basic_black_0.4"
+                android:type="linear" />
         </shape>
     </item>
     <item>
         <shape>
             <gradient
-                android:type="linear"
                 android:angle="270"
-                android:startColor="@color/basic_black_0.4"
                 android:centerColor="#22292929"
-                android:endColor="@color/transparent"
                 android:centerY="40%"
-                />
+                android:endColor="@color/transparent"
+                android:startColor="@color/basic_black_0.4"
+                android:type="linear" />
         </shape>
     </item>
 </layer-list>

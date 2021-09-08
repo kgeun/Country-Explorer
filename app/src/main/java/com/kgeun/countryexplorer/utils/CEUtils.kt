@@ -9,7 +9,7 @@ object CEUtils {
         Toast.makeText(context, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
-    fun numberOfSelectedButtons(list: List<CEContinentViewItem>?) :Int =
+    fun numberOfSelectedButtons(list: List<CEContinentViewItem>?): Int =
         list?.let { list.filter { it.selected }.toList().size } ?: 0
 
 }

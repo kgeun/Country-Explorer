@@ -17,7 +17,7 @@ class CETypeConverter {
             if (s.isNotEmpty()) {
                 list.add(
                     CELanguageEntity(
-                        name=s
+                        name = s
                     )
                 )
             }
@@ -28,7 +28,7 @@ class CETypeConverter {
 
     @TypeConverter
     fun writingStringFromLanguageList(list: List<CELanguageEntity>): String {
-        var items=""
+        var items = ""
         for (i in list) items += ",${i.name}"
         return items
     }

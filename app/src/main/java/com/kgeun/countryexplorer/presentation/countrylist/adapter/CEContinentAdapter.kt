@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kgeun.countryexplorer.databinding.ListitemContinentSelectionBinding
 import com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem
 
-class CEContinentAdapter(val parentView: ViewGroup, val continentList: List<CEContinentViewItem>?, val buttonCallback: (CEContinentViewItem) -> Unit) :
+class CEContinentAdapter(
+    val parentView: ViewGroup,
+    val continentList: List<CEContinentViewItem>?,
+    val buttonCallback: (CEContinentViewItem) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =

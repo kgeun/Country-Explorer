@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.ActivitySplashBinding
-import com.kgeun.countryexplorer.presentation.CEMainActivity
 import com.kgeun.countryexplorer.presentation.CEBaseActivity
+import com.kgeun.countryexplorer.presentation.CEMainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

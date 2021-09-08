@@ -25,8 +25,9 @@ class CECountryListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val countriesList = mainDao.getCountriesList()
-    var searchKeywordLiveData = MutableLiveData<String>().apply { postValue("")}
-    var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>().apply { postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>) }
+    var searchKeywordLiveData = MutableLiveData<String>().apply { postValue("") }
+    var continentLiveData =
+        MutableLiveData<List<CEContinentViewItem>?>().apply { postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>) }
     var networkLiveData = MutableLiveData<NetworkState<Nothing>>()
 
     var countriesLiveData = MediatorLiveData<List<CECountryListViewItem>?>().apply {
@@ -39,7 +40,13 @@ class CECountryListViewModel @Inject constructor(
                         continentLiveData.value!!.filter { it.selected }.map { it.region }.toList()
                     } ?: listOf()
 
-                    postValue(getSubListByCondition(keyword, continentLiveData.value!!, continentList))
+                    postValue(
+                        getSubListByCondition(
+                            keyword,
+                            continentLiveData.value!!,
+                            continentList
+                        )
+                    )
                 }
             }
         }
@@ -54,7 +61,13 @@ class CECountryListViewModel @Inject constructor(
                     val continentList = continent.filter { it.selected }.map { it.region }.toList()
                     val keyword = searchKeywordLiveData.value!!
 
-                    postValue(getSubListByCondition(keyword, continentLiveData.value!!, continentList))
+                    postValue(
+                        getSubListByCondition(
+                            keyword,
+                            continentLiveData.value!!,
+                            continentList
+                        )
+                    )
                 }
             }
         }
@@ -67,7 +80,8 @@ class CECountryListViewModel @Inject constructor(
     private fun getSubListByCondition(
         keyword: String,
         continentViewList: List<CEContinentViewItem>,
-        continentList: List<String>): List<CECountryListViewItem> {
+        continentList: List<String>
+    ): List<CECountryListViewItem> {
 
         val list = if (keyword == "" && numberOfSelectedButtons(continentViewList) == 0) {
             mainDao.getCountryListSync()
@@ -99,18 +113,18 @@ class CECountryListViewModel @Inject constructor(
                         }
                     }
                 } catch (e: com.bumptech.glide.load.HttpException) {
-                networkLiveData.postValue(NetworkState.Error(e))
+                    networkLiveData.postValue(NetworkState.Error(e))
                     e.printStackTrace()
                 } catch (e: HttpException) {
-                networkLiveData.postValue(NetworkState.Error(e))
+                    networkLiveData.postValue(NetworkState.Error(e))
                     e.printStackTrace()
                 } catch (e: Exception) {
-                networkLiveData.postValue(NetworkState.Error(e))
+                    networkLiveData.postValue(NetworkState.Error(e))
                     e.printStackTrace()
                 }
             }
         } catch (e: Exception) {
-                networkLiveData.postValue(NetworkState.Error(e))
+            networkLiveData.postValue(NetworkState.Error(e))
             e.printStackTrace()
         }
     }

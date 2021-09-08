@@ -28,7 +28,10 @@ interface CEMainDao {
     fun findCountryByContinentListSync(continents: List<String>): List<CECountryListEntity>?
 
     @Query("SELECT * FROM country WHERE region IN (:continents) AND name LIKE '%' || :keyword  || '%' ORDER BY name ASC")
-    fun findCountryByKeywordAndSeasonListSync(keyword: String, continents: List<String>): List<CECountryListEntity>?
+    fun findCountryByKeywordAndSeasonListSync(
+        keyword: String,
+        continents: List<String>
+    ): List<CECountryListEntity>?
 
     @Query("DELETE FROM country")
     fun truncateCountries()

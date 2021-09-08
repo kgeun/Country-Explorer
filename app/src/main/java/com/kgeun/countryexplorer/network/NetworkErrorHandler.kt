@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import com.kgeun.countryexplorer.R
 
-class CENetworkHandler<T> (val context: Context) {
+class CENetworkHandler<T>(val context: Context) {
 
     var errorCallBack: (() -> Unit)? = {
         Toast.makeText(context, R.string.communication_error, Toast.LENGTH_SHORT).show()
@@ -16,7 +16,7 @@ class CENetworkHandler<T> (val context: Context) {
 
     var loadingCallBack: (() -> Unit)? = null
 
-    fun success (item: NetworkState<T>, callback: (T) -> Unit) {
+    fun success(item: NetworkState<T>, callback: (T) -> Unit) {
         when (item) {
             is NetworkState.Success -> {
                 callback(item.item)

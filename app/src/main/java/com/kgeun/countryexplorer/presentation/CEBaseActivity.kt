@@ -3,8 +3,6 @@ package com.kgeun.countryexplorer.presentation
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
-import com.kgeun.countryexplorer.utils.CEUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

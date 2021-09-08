@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="country"
             type="com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem" />
@@ -13,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primary_light_grey_1">
-        
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
+
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapingToolbar"
                 android:layout_width="match_parent"
@@ -36,16 +37,16 @@
                         android:id="@+id/loadingIndicator"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        app:loading_width="5dp"
+                        android:layout_gravity="center"
                         app:loading_color="@color/primary_dark_navy_1"
-                        android:layout_gravity="center" />
+                        app:loading_width="5dp" />
 
                     <ImageView
                         android:id="@+id/topImage"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/top_head_background_height"
-                        app:mapthumbnail="@{country.latlng}"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:mapthumbnail="@{country.latlng}" />
 
                     <View
                         android:layout_width="match_parent"
@@ -81,17 +82,17 @@
                         android:layout_gravity="top|start"
                         android:layout_marginTop="7dp"
                         android:padding="15dp"
+                        android:src="@drawable/ic_left_arrow"
                         app:layout_collapseMode="pin"
-                        app:tint="@color/white"
-                        android:src="@drawable/ic_left_arrow"/>
+                        app:tint="@color/white" />
 
                     <TextView
                         android:id="@+id/title2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center"
                         android:layout_marginHorizontal="60dp"
+                        android:gravity="center"
                         android:text="@{country.name}"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
@@ -113,9 +114,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="60dp"
                     android:ellipsize="end"
                     android:gravity="center"
-                    android:layout_marginHorizontal="60dp"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:text="@{country.name}"
@@ -131,8 +132,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/titleToolbarTextmargin"
                     android:layout_marginHorizontal="60dp"
+                    android:layout_marginTop="@dimen/titleToolbarTextmargin"
                     android:ellipsize="marquee"
                     android:gravity="center"
                     android:maxLines="2"
@@ -151,9 +152,9 @@
                     android:layout_gravity="top|start"
                     android:layout_marginTop="7dp"
                     android:padding="15dp"
+                    android:src="@drawable/ic_left_arrow"
                     app:layout_collapseMode="parallax"
-                    app:tint="@color/white"
-                    android:src="@drawable/ic_left_arrow"/>
+                    app:tint="@color/white" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -174,8 +175,8 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="20dp"
+                    android:orientation="vertical"
                     android:paddingHorizontal="30dp">
 
                     <View
@@ -200,14 +201,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{country.nativeName}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -233,14 +234,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{country.capital}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -266,14 +267,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{country.region}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -299,14 +300,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{country.subregion}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -332,14 +333,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{country.population}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -365,14 +366,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{country.latlng[0] + `, ` + country.latlng[1]}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -398,14 +399,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:lineSpacingExtra="6sp"
                             android:text="@{String.valueOf(country.area)}"
                             android:textColor="@color/basic_black_0.8"
-                            android:lineSpacingExtra="6sp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:ellipsize="end" />
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -431,14 +432,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
-                            app:languageList="@{country.languages}"
-                            android:textColor="@color/basic_black_0.8"
                             android:lineSpacingExtra="6sp"
+                            android:textColor="@color/basic_black_0.8"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:ellipsize="end" />
+                            app:languageList="@{country.languages}" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -451,17 +452,17 @@
 
                 <include
                     android:id="@+id/communicationFailLayout"
+                    layout="@layout/layout_communication_fail"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    layout="@layout/layout_communication_fail" />
+                    android:layout_height="match_parent" />
 
                 <com.victor.loading.rotate.RotateLoading
                     android:id="@+id/contentLoadingIndicator"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:loading_width="5dp"
+                    android:layout_gravity="center"
                     app:loading_color="@color/primary_teal_1_0.3"
-                    android:layout_gravity="center" />
+                    app:loading_width="5dp" />
             </FrameLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

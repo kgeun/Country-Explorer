@@ -1,8 +1,6 @@
 package com.kgeun.countryexplorer.model.response
 
 import android.os.Parcelable
-import androidx.room.PrimaryKey
-import com.kgeun.countryexplorer.model.entity.CELanguageEntity
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
@@ -24,4 +22,4 @@ data class CECountryResponse(
     val nativeName: String = "",
     val subregion: String = "",
     val languages: List<CELanguage> = listOf()
-): Serializable, Parcelable
+) : Serializable, Parcelable

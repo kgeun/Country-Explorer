@@ -10,15 +10,18 @@ import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragmentDirections
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem
 
-class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CECountryListViewItem>?) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CECountryAdapter(
+    val parentView: ViewGroup,
+    val countryList: ArrayList<CECountryListViewItem>?
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CountryHolder(
-                ListitemCountryBinding.inflate(
-                    LayoutInflater.from(parentView.context), parentView, false
-                )
+            ListitemCountryBinding.inflate(
+                LayoutInflater.from(parentView.context), parentView, false
             )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -50,7 +53,8 @@ class CECountryAdapter(val parentView: ViewGroup, val countryList: ArrayList<CEC
 
                     findNavController(root)
                         .navigate(
-                            CECountryListFragmentDirections.listToDetail(item.alpha3Code!!), navBuilder.build()
+                            CECountryListFragmentDirections.listToDetail(item.alpha3Code!!),
+                            navBuilder.build()
                         )
                 }
                 executePendingBindings()

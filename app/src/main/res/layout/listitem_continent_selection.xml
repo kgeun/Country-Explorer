@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="continent"
             type="com.kgeun.countryexplorer.presentation.countrylist.data.CEContinentViewItem" />
@@ -13,25 +13,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingVertical="4dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/rcs_continent_background_1">
+        android:background="@drawable/rcs_continent_background_1"
+        android:paddingVertical="4dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/basic_black"
-            android:textStyle="bold"
-            android:text="@{continent.text}"
+            android:layout_marginHorizontal="12dp"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:layout_marginHorizontal="12dp"
+            android:text="@{continent.text}"
+            android:textColor="@color/basic_black"
             android:textSize="13sp"
-            tools:text="Asia"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Asia" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
