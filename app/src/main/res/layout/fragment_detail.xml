@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/top_head_background_height"
                         android:scaleType="centerCrop"
-                        app:mapthumbnail="@{country.latlng}" />
+                        app:mapThumbnail="@{country.latlng}" />
 
                     <View
                         android:layout_width="match_parent"

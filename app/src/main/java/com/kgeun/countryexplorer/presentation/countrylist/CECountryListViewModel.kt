@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -74,7 +75,9 @@ class CECountryListViewModel @Inject constructor(
     }
 
     init {
-        refreshCountryData()
+        if (countriesList.value == null || countriesList.value!!.isEmpty()) {
+            refreshCountryData()
+        }
     }
 
     private fun getSubListByCondition(
@@ -101,31 +104,20 @@ class CECountryListViewModel @Inject constructor(
     }
 
     fun refreshCountryData() {
-        try {
-            networkLiveData.postValue(NetworkState.Loading)
-            if (countriesList.value == null || countriesList.value!!.isEmpty()) {
-                try {
-                    viewModelScope.launch {
-                        withContext(Dispatchers.Default) {
-                            mainDao.insertCountries(
-                                CEService.fetchCountriesList().map(::transformResponseToEntity)
-                            )
-                        }
+        networkLiveData.postValue(NetworkState.Loading)
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                if (countriesList.value == null || countriesList.value!!.isEmpty()) {
+                    try {
+                        mainDao.insertCountries(
+                            CEService.fetchCountriesList().map(::transformResponseToEntity)
+                        )
+                    } catch (e: Exception) {
+                        networkLiveData.postValue(NetworkState.Error(e))
+                        e.printStackTrace()
                     }
-                } catch (e: com.bumptech.glide.load.HttpException) {
-                    networkLiveData.postValue(NetworkState.Error(e))
-                    e.printStackTrace()
-                } catch (e: HttpException) {
-                    networkLiveData.postValue(NetworkState.Error(e))
-                    e.printStackTrace()
-                } catch (e: Exception) {
-                    networkLiveData.postValue(NetworkState.Error(e))
-                    e.printStackTrace()
                 }
             }
-        } catch (e: Exception) {
-            networkLiveData.postValue(NetworkState.Error(e))
-            e.printStackTrace()
         }
     }
 }

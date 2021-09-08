@@ -111,6 +111,7 @@ class CECountryDetailFragment : CEBaseFragment() {
                 binding.loadingIndicator.stop()
                 binding.contentLoadingIndicator.stop()
                 binding.communicationFailLayout.root.visibility = View.GONE
+                bin
                 binding.country = it
             }
         }

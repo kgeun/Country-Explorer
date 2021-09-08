@@ -53,7 +53,8 @@ class CEServiceTest {
     fun init() {
         hiltRule.inject()
 
-        countryListViewModel = CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
+        countryListViewModel =
+            CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
         countryListViewModel.viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 analyticsAdapter.mainDao.truncateCharacters()
@@ -68,7 +69,8 @@ class CEServiceTest {
             List::class.java,
             BBCharacter::class.java
         )
-        val adapter: JsonAdapter<List<BBCharacter>> = analyticsAdapter.moshi.adapter<List<BBCharacter>>(listMyData)
+        val adapter: JsonAdapter<List<BBCharacter>> =
+            analyticsAdapter.moshi.adapter<List<BBCharacter>>(listMyData)
         charactersList = adapter.fromJson(charactersRawString)
 
     }

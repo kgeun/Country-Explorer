@@ -42,7 +42,8 @@ class DatabaseAndViewModelTest {
     fun init() {
         hiltRule.inject()
 
-        countryListViewModel = CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
+        countryListViewModel =
+            CECountryListViewModel(analyticsAdapter.mainDao, analyticsAdapter.bbService)
 
 
         val charactersInputStream: InputStream = context.assets.open("character_result.json")
@@ -53,7 +54,8 @@ class DatabaseAndViewModelTest {
             List::class.java,
             BBCharacter::class.java
         )
-        val adapter: JsonAdapter<List<BBCharacter>> = analyticsAdapter.moshi.adapter<List<BBCharacter>>(listMyData)
+        val adapter: JsonAdapter<List<BBCharacter>> =
+            analyticsAdapter.moshi.adapter<List<BBCharacter>>(listMyData)
         charactersList = adapter.fromJson(charactersRawString)
     }
 
@@ -69,7 +71,7 @@ class DatabaseAndViewModelTest {
                 "A",
                 "B",
                 "C",
-                listOf(1,2,3),
+                listOf(1, 2, 3),
                 "1",
                 "2",
                 listOf()
@@ -104,6 +106,7 @@ class DatabaseAndViewModelTest {
 
 class CustomObserver<T>(private val handler: (T?) -> Unit) : Observer<T>, LifecycleOwner {
     private val lifecycle = LifecycleRegistry(this)
+
     init {
         lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
     }

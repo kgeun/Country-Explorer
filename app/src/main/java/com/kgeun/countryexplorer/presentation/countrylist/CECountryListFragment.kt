@@ -26,6 +26,8 @@ class CECountryListFragment : CEBaseFragment() {
     @Inject
     lateinit var mainDao: CEMainDao
 
+    var isRefreshing = false
+
     var callback = { item: CEContinentViewItem ->
         countryListViewModel.continentLiveData.postValue(
             countryListViewModel.continentLiveData.value.also {
@@ -55,6 +57,7 @@ class CECountryListFragment : CEBaseFragment() {
     private fun bindUi() {
         binding.viewModel = countryListViewModel
         binding.communicationFailLayout.retryButton.setOnClickListener {
+            isRefreshing = true
             countryListViewModel.refreshCountryData()
         }
     }
@@ -73,7 +76,11 @@ class CECountryListFragment : CEBaseFragment() {
 
         observe(countryListViewModel.continentLiveData) {
             if (it != null) {
-                if (it.isNotEmpty()) {
+                if (isRefreshing) {
+                    isRefreshing = false
+                    binding.loadingIndicator.stop()
+                    binding.countryList.visibility = View.VISIBLE
+                    binding.communicationFailLayout.root.visibility = View.GONE
                     countryListViewModel.networkLiveData.postValue(NetworkState.Loaded)
                 }
                 if (binding.continentAdapter == null) {
@@ -87,10 +94,11 @@ class CECountryListFragment : CEBaseFragment() {
 
         observe(countryListViewModel.networkLiveData) {
             binding.loadingIndicator.apply {
-                if (it == null || it is NetworkState.Loading) {
+                if (it is NetworkState.Loading) {
                     start()
                 } else if (it is NetworkState.Error) {
                     stop()
+                    binding.countryList.visibility = View.GONE
                     binding.communicationFailLayout.root.visibility = View.VISIBLE
                     CEUtils.errorHandler(
                         requireContext(),
@@ -98,7 +106,8 @@ class CECountryListFragment : CEBaseFragment() {
                     )
                 } else {
                     stop()
-                    binding.communicationFailLayout.root.visibility = View.INVISIBLE
+                    binding.countryList.visibility = View.VISIBLE
+                    binding.communicationFailLayout.root.visibility = View.GONE
                 }
             }
         }

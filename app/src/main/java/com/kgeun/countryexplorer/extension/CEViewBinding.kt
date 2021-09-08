@@ -63,7 +63,7 @@ object CEViewBinding {
     }
 
     @JvmStatic
-    @BindingAdapter("mapthumbnail")
+    @BindingAdapter("mapThumbnail")
     fun setMapThumbnail(view: ImageView, latlng: List<Float>?) {
         if (latlng == null) {
             return

@@ -17,7 +17,7 @@
         android:theme="@style/Theme.CountryExplorer"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:label">
-        <activity android:name="com.kgeun.countryexplorer.presentation.splash.BBSplashActivity">
+        <activity android:name="com.kgeun.countryexplorer.presentation.splash.CESplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,10 +26,6 @@
         <activity
             android:name="com.kgeun.countryexplorer.presentation.CEMainActivity"
             android:windowSoftInputMode="stateHidden" />
-
-        <meta-data
-            android:name="googleKey"
-            android:value="AIzaSyCzQIMdy02OkdxEwAT_d-tJ4lsTte5msEo" />
 
         <meta-data
             android:name="mapquestKey"

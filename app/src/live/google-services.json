@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "236967112146",
+    "project_id": "country-explorer-fa74e",
+    "storage_bucket": "country-explorer-fa74e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236967112146:android:f2236d9b57f24dab312c0b",
+        "android_client_info": {
+          "package_name": "com.kgeun.countryexplorer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236967112146-i6ds1bdbkhspfvc3rioieipdh4g8t6jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC72EFTK7AptTWn1kTFWUADyoWBfJSU44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236967112146-i6ds1bdbkhspfvc3rioieipdh4g8t6jm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

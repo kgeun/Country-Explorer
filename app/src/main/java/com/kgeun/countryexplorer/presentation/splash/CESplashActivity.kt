@@ -10,7 +10,7 @@ import com.kgeun.countryexplorer.presentation.CEMainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class BBSplashActivity : CEBaseActivity() {
+class CESplashActivity : CEBaseActivity() {
 
     private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
 
