@@ -134,4 +134,22 @@
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 -dontwarn org.conscrypt.ConscryptHostnameVerifier
 
--keep class com.kgeun.bbcharacterexplorer.data.model.**
+-keep class com.kgeun.countryexplorer.model.**
+-keep class com.kgeun.countryexplorer.presentation.countrydetail.data.**
+-keep class com.kgeun.countryexplorer.presentation.countrylist.data.**
+
+-keepclassmembers class kotlinx.serialization.json.** {
+    *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+# Change here com.yourcompany.yourpackage
+-keep,includedescriptorclasses class com.kgeun.countryexplorer.**$$serializer { *; } # <-- change package name to your app's
+-keepclassmembers class com.kgeun.countryexplorer.** { # <-- change package name to your app's
+    *** Companion;
+}
+-keepclasseswithmembers class com.kgeun.themeparkers.** { # <-- change package name to your app's
+    kotlinx.serialization.KSerializer serializer(...);
+}
