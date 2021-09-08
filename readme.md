@@ -60,8 +60,7 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 - Think about the efficient structure of how to configure MediatorLivedata for more filtering conditions
 - I thought I had the best design in a short time, but I need to think more about whether there is a better way
 - It must have been a good experience to apply jetpack compose.
-- (being written)
-
+- It seems to be necessary to improve via refactoring so that testing is possible with only logic as much as possible, and it is also necessary to establish a policy for UI testing.
 
 ## Test Cases and Results (Unit Test through JUnit4)
 
