@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import com.kgeun.countryexplorer.data.response.network.CECountryResponse
+import com.kgeun.countryexplorer.model.response.CECountryResponse
 import com.kgeun.countryexplorer.presentation.countrydetail.data.CECountryViewItem
 import com.kgeun.countryexplorer.persistance.CEMainDao
 import com.kgeun.countryexplorer.extension.liveDataScope
@@ -45,7 +45,14 @@ class CECountryDetailViewModel @Inject constructor(
                 capital = capital,
                 region = region,
                 subregion = subregion,
-                languages = languages
+                languages = languages.map {
+                    CECountryViewItem.CELanguageItem(
+                        iso639_1 = it.iso639_1,
+                        iso639_2 = it.iso639_2,
+                        name = it.name,
+                        nativeName = it.nativeName
+                    )
+                }
             )
         }
     }

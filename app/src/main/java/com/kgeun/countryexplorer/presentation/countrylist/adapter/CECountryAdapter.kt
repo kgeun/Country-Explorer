@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kgeun.countryexplorer.R
-import com.kgeun.countryexplorer.data.response.network.CECountryListEntity
 import com.kgeun.countryexplorer.databinding.ListitemCountryBinding
 import com.kgeun.countryexplorer.presentation.countrylist.CECountryListFragmentDirections
 import com.kgeun.countryexplorer.presentation.countrylist.data.CECountryListViewItem

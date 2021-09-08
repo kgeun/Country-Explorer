@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.kgeun.countryexplorer.data.response.network.CECountryListEntity
+import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 
 @Dao
 interface CEMainDao {

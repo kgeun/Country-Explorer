@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.kgeun.countryexplorer.constants.CEConstants
 import com.kgeun.countryexplorer.network.NetworkState
 import kotlinx.coroutines.Dispatchers
 
@@ -12,15 +13,9 @@ inline fun <T, V> ViewModel.liveDataScope(
     crossinline networkCall: suspend () -> T,
     crossinline map: (type: T) -> V
 ): LiveData<NetworkState<V>> {
-
-    Log.i("kglee", "livedatascope-1")
-
     return liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-        Log.i("kglee", "livedatascope0")
         emit(NetworkState.Loading)
-        Log.i("kglee", "livedatascope1")
         runCatching {
-            Log.i("kglee", "livedatascope2")
             networkCall.invoke()
         }.mapCatching(map)
             .onSuccess { data: V ->
@@ -28,5 +23,26 @@ inline fun <T, V> ViewModel.liveDataScope(
             }.onFailure {
                 emit(NetworkState.Error(it))
             }
+    }
+}
+
+inline fun <T, V> ViewModel.callbacks(
+    crossinline networkCall: suspend () -> T,
+    crossinline state: (state: Int) -> Unit,
+    crossinline onSuccess: (type: T) -> Unit,
+    crossinline onFail: (type: Throwable) -> Unit,
+): LiveData<NetworkState<V>> {
+    return liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+        state(CEConstants.STATE_LOADING)
+        runCatching {
+            networkCall.invoke()
+        }
+        .onSuccess {
+            state(CEConstants.STATE_SUCCESS)
+            onSuccess(it)
+        }.onFailure {
+            state(CEConstants.STATE_ERROR)
+            onFail(it)
+        }
     }
 }

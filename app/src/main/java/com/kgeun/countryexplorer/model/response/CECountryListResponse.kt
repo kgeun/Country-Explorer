@@ -1,7 +1,6 @@
-package com.kgeun.countryexplorer.data.response.network
+package com.kgeun.countryexplorer.model.response
 
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
