@@ -2,7 +2,6 @@ package com.kgeun.countryexplorer.model.response
 
 import com.kgeun.countryexplorer.model.entity.CECountryListEntity
 import com.kgeun.countryexplorer.model.entity.CELanguageEntity
-import com.kgeun.countryexplorer.model.response.CECountryListResponse
 
 object CEResponseUtil {
     fun transformResponseToEntity(response: CECountryListResponse): CECountryListEntity

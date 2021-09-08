@@ -14,7 +14,6 @@ import com.kgeun.countryexplorer.utils.CEUtils.numberOfSelectedButtons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
