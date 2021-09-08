@@ -15,8 +15,8 @@ It is an app that shows information about countries around the world using the o
 
 ## How to use the app
 
-You can download app's package file here (https://drive.google.com/drive/folders/1D0nAixvuRdoxCJQmlPAYdJLu4ff9OHPI?usp=sharing).  
-Please download BBCE_live_release_1.0_1_20210902.apk file and install, execute it.
+You can download app's package file here (https://drive.google.com/drive/folders/1Sy07h5YAfLV0BRgVXqKFngyfYYBZArjv?usp=sharing).  
+Please download CountryExplorer_live_release_1.0_1_20210908.apk file and install, execute it.
 
 ## Source Repository
 
