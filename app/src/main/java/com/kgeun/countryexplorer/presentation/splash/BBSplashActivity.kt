@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.ActivitySplashBinding
-import com.kgeun.countryexplorer.presentation.BBMainActivity
+import com.kgeun.countryexplorer.presentation.CEMainActivity
 import com.kgeun.countryexplorer.presentation.CEBaseActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class BBSplashActivity : CEBaseActivity() {
 
     fun moveToMain() {
         finish()
-        startActivity(Intent(this, BBMainActivity::class.java))
+        startActivity(Intent(this, CEMainActivity::class.java))
         overridePendingTransition(R.anim.translate_fade_in, android.R.anim.fade_out)
     }
 }

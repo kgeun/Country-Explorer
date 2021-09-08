@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +27,7 @@ class CECountryListViewModel @Inject constructor(
     private val countriesList = mainDao.getCountriesList()
     var searchKeywordLiveData = MutableLiveData<String>().apply { postValue("")}
     var continentLiveData = MutableLiveData<List<CEContinentViewItem>?>().apply { postValue(CEConstants.continentItems.clone() as ArrayList<CEContinentViewItem>) }
-    var networkLiveData = MutableLiveData<NetworkState<Nothing>>().apply { postValue(NetworkState.Loading) }
+    var networkLiveData = MutableLiveData<NetworkState<Nothing>>()
 
     var countriesLiveData = MediatorLiveData<List<CECountryListViewItem>?>().apply {
         addSource(countriesList) { value -> setValue(value!!.map(::transformEntityToViewItem)) }
@@ -60,19 +61,7 @@ class CECountryListViewModel @Inject constructor(
     }
 
     init {
-        if (countriesList.value == null || countriesList.value!!.isEmpty() ) {
-            try {
-                viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        mainDao.insertCountries(
-                            CEService.fetchCountriesList().map(::transformResponseToEntity)
-                        )
-                    }
-                }
-            } catch (e: Exception) {
-                networkLiveData.postValue(NetworkState.Error(e))
-            }
-        }
+        refreshCountryData()
     }
 
     private fun getSubListByCondition(
@@ -95,5 +84,34 @@ class CECountryListViewModel @Inject constructor(
 
     fun getCountryByCode(code: String): LiveData<CECountryListEntity?> {
         return mainDao.getCountryByCode(code)
+    }
+
+    fun refreshCountryData() {
+        try {
+            networkLiveData.postValue(NetworkState.Loading)
+            if (countriesList.value == null || countriesList.value!!.isEmpty()) {
+                try {
+                    viewModelScope.launch {
+                        withContext(Dispatchers.Default) {
+                            mainDao.insertCountries(
+                                CEService.fetchCountriesList().map(::transformResponseToEntity)
+                            )
+                        }
+                    }
+                } catch (e: com.bumptech.glide.load.HttpException) {
+                networkLiveData.postValue(NetworkState.Error(e))
+                    e.printStackTrace()
+                } catch (e: HttpException) {
+                networkLiveData.postValue(NetworkState.Error(e))
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                networkLiveData.postValue(NetworkState.Error(e))
+                    e.printStackTrace()
+                }
+            }
+        } catch (e: Exception) {
+                networkLiveData.postValue(NetworkState.Error(e))
+            e.printStackTrace()
+        }
     }
 }

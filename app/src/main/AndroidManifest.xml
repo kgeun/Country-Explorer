@@ -4,6 +4,7 @@
     package="com.kgeun.countryexplorer">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="false"
@@ -22,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kgeun.countryexplorer.presentation.BBMainActivity"
+        <activity android:name="com.kgeun.countryexplorer.presentation.CEMainActivity"
             android:windowSoftInputMode="stateHidden" />
     </application>
 

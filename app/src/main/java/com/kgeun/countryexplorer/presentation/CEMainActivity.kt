@@ -7,7 +7,7 @@ import com.kgeun.countryexplorer.R
 import com.kgeun.countryexplorer.databinding.ActivityMainBinding
 
 
-class BBMainActivity : CEBaseActivity() {
+class CEMainActivity : CEBaseActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
