@@ -92,5 +92,5 @@ Github public repository, https://github.com/kgeun/Country-Explorer
 **Fail** : 0 cases  
     
 
-## Introduction to the project focus
-I downloaded some reoureces from flaticon.com
+## Copyright information
+I downloaded some icon resources from flaticon.com
